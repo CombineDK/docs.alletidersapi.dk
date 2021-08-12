@@ -2,13 +2,13 @@
 <h2 id="header-useful-links">Useful Links <a class="permalink" href="#header-useful-links" aria-hidden="true">¶</a></h2>
 <ul>
 <li>
-<p><a href="http://docs.alletidersapi.dk/">Documentation</a></p>
+<p><a href="https://docs.alletidersapi.dk/">Documentation</a></p>
 </li>
 <li>
-<p><a href="http://docs.alletidersapi.dk/overview/">System Overview</a></p>
+<p><a href="https://docs.alletidersapi.dk/overview/">System Overview</a></p>
 </li>
 <li>
-<p><a href="http://docs.alletidersapi.dk/api/provider-apiary.html">Provider Documentation</a></p>
+<p><a href="https://docs.alletidersapi.dk/api/provider-apiary.html">Provider Documentation</a></p>
 </li>
 </ul>
 <h2 id="header-document-purpose">Document purpose <a class="permalink" href="#header-document-purpose" aria-hidden="true">¶</a></h2>
@@ -91,7 +91,7 @@ An error may occur only if ticket identities are received before this request is
 <ul>
 <li>id (number) - product identifier</li>
 <li>qty (number) - quantity, CANNOT be changed later!</li>
-<li>allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the <a href="http://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments">ProductAllotment</a> resource.</li>
+<li>allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the <a href="https://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments">ProductAllotment</a> resource.</li>
 </ul>
 </li>
 </ul>
@@ -140,7 +140,7 @@ An error may occur only if ticket identities are received before this request is
 <ul>
 <li>id (number) - product identifier</li>
 <li>qty (number) - quantity, CANNOT be changed later!</li>
-<li>allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the <a href="http://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments">ProductAllotment</a> resource.</li>
+<li>allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the <a href="https://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments">ProductAllotment</a> resource.</li>
 </ul>
 </li>
 </ul>
@@ -150,7 +150,7 @@ An error may occur only if ticket identities are received before this request is
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Cookie</span>: <span class="hljs-string">PHPSESSID=v2uef43ihovm65k3vumsgdd6n4</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>205</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>Reset Content - The order will be cancelled</p>
 </div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">order</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/order"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"147"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">order</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/order"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"147"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">insertTime</span>&gt;</span>2013-05-16T10:21:47+02:00<span class="hljs-tag">&lt;/<span class="hljs-title">insertTime</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">modified</span>&gt;</span>2013-05-16T10:34:58+02:00<span class="hljs-tag">&lt;/<span class="hljs-title">modified</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">price</span>&gt;</span>6500<span class="hljs-tag">&lt;/<span class="hljs-title">price</span>&gt;</span>
@@ -310,7 +310,7 @@ An error may occur only if ticket identities are received before this request is
 </tbody>
 </table>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://alletidersapi.dk</span>/channel/order/</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Cookie</span>: <span class="hljs-string">PHPSESSID=v2uef43ihovm65k3vumsgdd6n4</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">order</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/order"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"147"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">order</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/order"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"147"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">insertTime</span>&gt;</span>2013-05-16T10:21:47+02:00<span class="hljs-tag">&lt;/<span class="hljs-title">insertTime</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">modified</span>&gt;</span>2013-05-16T10:34:58+02:00<span class="hljs-tag">&lt;/<span class="hljs-title">modified</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">price</span>&gt;</span>6500<span class="hljs-tag">&lt;/<span class="hljs-title">price</span>&gt;</span>
@@ -464,7 +464,7 @@ An error may occur only if ticket identities are received before this request is
    ]
 }</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="orders-order-lines" class="resource"><h3 class="resource-heading">Order Lines <a href="#orders-order-lines" class="permalink">&nbsp;&para;</a></h3><div id="orders-order-lines-get" class="action get"><h4 class="action-heading"><div class="name">Get Order Lines</div><a href="#orders-order-lines-get" class="method get">GET</a><code class="uri">/channel/order-line</code></h4><p>Retrieves all the items in the order. The order is identified via session cookie. Data structure is the same as orderlines entry in the order.</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://alletidersapi.dk</span>/channel/order-line</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">orderLines</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/order-line"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">orderLines</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/order-line"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">orderLine</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"764"</span> <span class="hljs-attribute">productId</span>=<span class="hljs-value">"10"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>1 dags leje af voksencykel (herre)<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">quantity</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">quantity</span>&gt;</span>
@@ -546,7 +546,7 @@ An error may occur only if ticket identities are received before this request is
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">transaction</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/payment-transaction"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">transaction</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/payment-transaction"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">action</span>&gt;</span>https://secure.quickpay.dk/form/<span class="hljs-tag">&lt;/<span class="hljs-title">action</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">fields</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">protocol</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-title">protocol</span>&gt;</span>
@@ -556,9 +556,9 @@ An error may occur only if ticket identities are received before this request is
         <span class="hljs-tag">&lt;<span class="hljs-title">ordernumber</span>&gt;</span>an_dtr_dev_test_72<span class="hljs-tag">&lt;/<span class="hljs-title">ordernumber</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">amount</span>&gt;</span>6500<span class="hljs-tag">&lt;/<span class="hljs-title">amount</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">currency</span>&gt;</span>DKK<span class="hljs-tag">&lt;/<span class="hljs-title">currency</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">continueurl</span>&gt;</span>http://www.google.com<span class="hljs-tag">&lt;/<span class="hljs-title">continueurl</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">cancelurl</span>&gt;</span>http://www.google.com<span class="hljs-tag">&lt;/<span class="hljs-title">cancelurl</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">callbackurl</span>&gt;</span>http://dev.alletidersapi.com/channel/payment-callback?channel=Drupal<span class="hljs-tag">&lt;/<span class="hljs-title">callbackurl</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">continueurl</span>&gt;</span>https://www.google.com<span class="hljs-tag">&lt;/<span class="hljs-title">continueurl</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">cancelurl</span>&gt;</span>https://www.google.com<span class="hljs-tag">&lt;/<span class="hljs-title">cancelurl</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">callbackurl</span>&gt;</span>https://dev.alletidersapi.com/channel/payment-callback?channel=Drupal<span class="hljs-tag">&lt;/<span class="hljs-title">callbackurl</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">autocapture</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-title">autocapture</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">description</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">ipaddress</span>&gt;</span>192.168.0.1<span class="hljs-tag">&lt;/<span class="hljs-title">ipaddress</span>&gt;</span>
@@ -574,9 +574,9 @@ An error may occur only if ticket identities are received before this request is
     "<span class="hljs-attribute">ordernumber</span>": <span class="hljs-value"><span class="hljs-string">"an_dtr_dev_test_72"</span></span>,
     "<span class="hljs-attribute">amount</span>": <span class="hljs-value"><span class="hljs-number">6500</span></span>,
     "<span class="hljs-attribute">currency</span>": <span class="hljs-value"><span class="hljs-string">"DKK"</span></span>,
-    "<span class="hljs-attribute">continueurl</span>": <span class="hljs-value"><span class="hljs-string">"http://www.google.com"</span></span>,
-    "<span class="hljs-attribute">cancelurl</span>": <span class="hljs-value"><span class="hljs-string">"http://www.google.com"</span></span>,
-    "<span class="hljs-attribute">callbackurl</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/channel/payment-callback?channel=Drupal"</span></span>,
+    "<span class="hljs-attribute">continueurl</span>": <span class="hljs-value"><span class="hljs-string">"https://www.google.com"</span></span>,
+    "<span class="hljs-attribute">cancelurl</span>": <span class="hljs-value"><span class="hljs-string">"https://www.google.com"</span></span>,
+    "<span class="hljs-attribute">callbackurl</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/channel/payment-callback?channel=Drupal"</span></span>,
     "<span class="hljs-attribute">autocapture</span>": <span class="hljs-value"><span class="hljs-string">"0"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
     "<span class="hljs-attribute">ipaddress</span>": <span class="hljs-value"><span class="hljs-string">"192.168.0.1"</span></span>,
@@ -604,7 +604,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">products</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/product"</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">"12"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">products</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/product"</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">"12"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">product</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"9"</span> <span class="hljs-attribute">ver</span>=<span class="hljs-value">"5"</span> <span class="hljs-attribute">providerId</span>=<span class="hljs-value">"8"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">insertTime</span>&gt;</span>2013-02-07T13:51:43+01:00<span class="hljs-tag">&lt;/<span class="hljs-title">insertTime</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">salesEmail</span>&gt;</span>khe@gotour.dk<span class="hljs-tag">&lt;/<span class="hljs-title">salesEmail</span>&gt;</span>
@@ -628,9 +628,9 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;<span class="hljs-title">providerName</span>&gt;</span>Test udbyder<span class="hljs-tag">&lt;/<span class="hljs-title">providerName</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/main/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/main/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">product</span>&gt;</span>
@@ -653,9 +653,9 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;<span class="hljs-title">providerName</span>&gt;</span>Test udbyder<span class="hljs-tag">&lt;/<span class="hljs-title">providerName</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/thumbs/050.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/main/050.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/050.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/thumbs/050.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/main/050.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/050.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">allotments</span>&gt;</span>
@@ -725,9 +725,9 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;/<span class="hljs-title">allotments</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev-cpm.dk/upload/00/000/thumbs/12a.png<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev-cpm.dk/upload/00/000/main/12a.png<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev-cpm.dk/upload/00/000/12a.png<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev-cpm.dk/upload/00/000/thumbs/12a.png<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev-cpm.dk/upload/00/000/main/12a.png<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev-cpm.dk/upload/00/000/12a.png<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">product</span>&gt;</span>
@@ -760,9 +760,9 @@ Otherwise result is not affected.</p>
       "<span class="hljs-attribute">providerName</span>": <span class="hljs-value"><span class="hljs-string">"Test udbyder"</span></span>,
       "<span class="hljs-attribute">images</span>": <span class="hljs-value">[
         {
-          "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg"</span></span>,
-          "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/main/03d.jpg"</span></span>,
-          "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/03d.jpg"</span>
+          "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg"</span></span>,
+          "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/main/03d.jpg"</span></span>,
+          "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/03d.jpg"</span>
         </span>}
       ]</span>,
       "<span class="hljs-attribute">allotments</span>": <span class="hljs-value">[
@@ -796,9 +796,9 @@ Otherwise result is not affected.</p>
       "<span class="hljs-attribute">providerName</span>": <span class="hljs-value"><span class="hljs-string">"Test udbyder"</span></span>,
       "<span class="hljs-attribute">images</span>": <span class="hljs-value">[
         {
-          "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/thumbs/050.jpg"</span></span>,
-          "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/main/050.jpg"</span></span>,
-          "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/050.jpg"</span>
+          "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/thumbs/050.jpg"</span></span>,
+          "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/main/050.jpg"</span></span>,
+          "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/050.jpg"</span>
         </span>}
       ]
     </span>},
@@ -866,9 +866,9 @@ Otherwise result is not affected.</p>
       </span>}</span>,
       "<span class="hljs-attribute">images</span>": <span class="hljs-value">[
         {
-          "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"http://dev-cpm.dk/upload/00/000/thumbs/12a.png"</span></span>,
-          "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"http://dev-cpm.dk/upload/00/000/main/12a.png"</span></span>,
-          "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"http://dev-cpm.dk/upload/00/000/12a.png"</span>
+          "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"https://dev-cpm.dk/upload/00/000/thumbs/12a.png"</span></span>,
+          "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"https://dev-cpm.dk/upload/00/000/main/12a.png"</span></span>,
+          "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"https://dev-cpm.dk/upload/00/000/12a.png"</span>
         </span>}
       ]
     </span>}
@@ -880,7 +880,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">product</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/product"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"9"</span> <span class="hljs-attribute">ver</span>=<span class="hljs-value">"5"</span> <span class="hljs-attribute">providerId</span>=<span class="hljs-value">"8"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">product</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/product"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"9"</span> <span class="hljs-attribute">ver</span>=<span class="hljs-value">"5"</span> <span class="hljs-attribute">providerId</span>=<span class="hljs-value">"8"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">insertTime</span>&gt;</span>2013-02-07T13:51:43+01:00<span class="hljs-tag">&lt;/<span class="hljs-title">insertTime</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">salesEmail</span>&gt;</span>khe@gotour.dk<span class="hljs-tag">&lt;/<span class="hljs-title">salesEmail</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">isFree</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-title">isFree</span>&gt;</span>
@@ -904,9 +904,9 @@ Otherwise result is not affected.</p>
     <span class="hljs-tag">&lt;<span class="hljs-title">providerName</span>&gt;</span>Test udbyder<span class="hljs-tag">&lt;/<span class="hljs-title">providerName</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/main/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/main/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/03d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">product</span>&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
@@ -937,9 +937,9 @@ Otherwise result is not affected.</p>
   "<span class="hljs-attribute">providerName</span>": <span class="hljs-value"><span class="hljs-string">"Test udbyder"</span></span>,
   "<span class="hljs-attribute">images</span>": <span class="hljs-value">[
     {
-      "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg"</span></span>,
-      "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/main/03d.jpg"</span></span>,
-      "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/03d.jpg"</span>
+      "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg"</span></span>,
+      "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/main/03d.jpg"</span></span>,
+      "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/03d.jpg"</span>
     </span>}
   ]</span>,
   "<span class="hljs-attribute">allotments</span>": <span class="hljs-value">[
@@ -963,7 +963,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">popularProducts</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/popular-product"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">popularProducts</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/popular-product"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">popularProduct</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"18"</span> <span class="hljs-attribute">providerId</span>=<span class="hljs-value">"10"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Entrebillet - Det Tekniske Museum - 1 Voksen<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">lastSaleDate</span>&gt;</span>2013-02-26T14:40:58+01:00<span class="hljs-tag">&lt;/<span class="hljs-title">lastSaleDate</span>&gt;</span>
@@ -1037,7 +1037,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">allotments</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/product-allotment"</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">"63"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">allotments</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/product-allotment"</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">"63"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">allotment</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"3340"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">bookingEventId</span>&gt;</span>181<span class="hljs-tag">&lt;/<span class="hljs-title">bookingEventId</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">start</span>&gt;</span>2013-05-22T01:00:00+02:00<span class="hljs-tag">&lt;/<span class="hljs-title">start</span>&gt;</span>
@@ -1180,7 +1180,7 @@ Otherwise result is not affected.</p>
   "<span class="hljs-attribute">allotmentsCount</span>": <span class="hljs-value"><span class="hljs-number">6</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="products-cities" class="resource"><h3 class="resource-heading">Cities <a href="#products-cities" class="permalink">&nbsp;&para;</a></h3><div id="products-cities-get" class="action get"><h4 class="action-heading"><div class="name">Get City List</div><a href="#products-cities-get" class="method get">GET</a><code class="uri">/channel/city</code></h4><p>Retrieve a list of cities that have at least one product for sale at this point in time. Product can be filtered using values from this resource.</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://alletidersapi.dk</span>/channel/city</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">cities</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/city"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">cities</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/city"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">city</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"2439"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Gilleleje<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">city</span>&gt;</span>
@@ -1219,7 +1219,7 @@ Otherwise result is not affected.</p>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="products-themes" class="resource"><h3 class="resource-heading">Themes <a href="#products-themes" class="permalink">&nbsp;&para;</a></h3><div id="products-themes-get" class="action get"><h4 class="action-heading"><div class="name">Get List of Themes</div><a href="#products-themes-get" class="method get">GET</a><code class="uri">/channel/theme</code></h4><p>Retrieve a list of active themes. Products can be filtered using values from this resource. Each product can belong to multiple themes.</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://alletidersapi.dk</span>/channel/theme</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">themes</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/theme"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">themes</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/theme"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">theme</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"1"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>Theme 1<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">descriptionShort</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">descriptionShort</span>&gt;</span>
@@ -1250,7 +1250,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">cart-related-products</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/cart-related-products"</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">"4"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">cart-related-products</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/cart-related-products"</span> <span class="hljs-attribute">count</span>=<span class="hljs-value">"4"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">product</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"4"</span> <span class="hljs-attribute">ver</span>=<span class="hljs-value">"3"</span> <span class="hljs-attribute">providerId</span>=<span class="hljs-value">"1"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">insertTime</span>&gt;</span>2013-07-09T12:58:01+02:00<span class="hljs-tag">&lt;/<span class="hljs-title">insertTime</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">salesEmail</span>&gt;</span>khe@gotour.dk<span class="hljs-tag">&lt;/<span class="hljs-title">salesEmail</span>&gt;</span>
@@ -1265,9 +1265,9 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;<span class="hljs-title">isAccommodation</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-title">isAccommodation</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02d.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">product</span>&gt;</span>
@@ -1285,14 +1285,14 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;<span class="hljs-title">isAccommodation</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">isAccommodation</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/023.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/023.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/023.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/023.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/023.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/023.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/022.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/022.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/022.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/022.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/022.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/022.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">product</span>&gt;</span>
@@ -1310,9 +1310,9 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;<span class="hljs-title">isAccommodation</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">isAccommodation</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02c.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02c.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02c.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02c.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02c.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02c.jpg<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">product</span>&gt;</span>
@@ -1330,9 +1330,9 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;<span class="hljs-title">isAccommodation</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-title">isAccommodation</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02e.JPG<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02e.JPG<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02e.JPG<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02e.JPG<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02e.JPG<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02e.JPG<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">product</span>&gt;</span>
@@ -1355,9 +1355,9 @@ Otherwise result is not affected.</p>
         "isAccommodation":"0",
         "images":[
             {
-                "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02e.JPG",
-                "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02e.JPG",
-                "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02e.JPG"
+                "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02e.JPG",
+                "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02e.JPG",
+                "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02e.JPG"
             }
         ]
     },
@@ -1379,9 +1379,9 @@ Otherwise result is not affected.</p>
         "isAccommodation":"1",
         "images":[
             {
-                "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02c.jpg",
-                "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02c.jpg",
-                "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02c.jpg"
+                "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02c.jpg",
+                "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02c.jpg",
+                "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02c.jpg"
             }
         ]
    },
@@ -1402,14 +1402,14 @@ Otherwise result is not affected.</p>
         "isAccommodation":"",
         "images":[
             {
-                "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/023.jpg",
-                "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/023.jpg",
-                "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/023.jpg"
+                "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/023.jpg",
+                "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/023.jpg",
+                "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/023.jpg"
             },
             {
-                "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/022.jpg",
-                "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/022.jpg",
-                "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/022.jpg"
+                "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/022.jpg",
+                "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/022.jpg",
+                "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/022.jpg"
             }
         ]
    },
@@ -1431,9 +1431,9 @@ Otherwise result is not affected.</p>
         "isAccommodation":"",
         "images":[
             {
-                "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/021.jpg",
-                "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/021.jpg",
-                "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/021.jpg"
+                "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/021.jpg",
+                "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/021.jpg",
+                "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/021.jpg"
             }
         ]
    }
@@ -1445,7 +1445,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">providers</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/provider"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">providers</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/provider"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">provider</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"22"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>7-Eleven<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">description</span>&gt;</span>Benzin station med kiosk salg, beliggende ved den store rundkørsel i Frederiksværk.&amp;#13;&amp;#13;<span class="hljs-tag">&lt;/<span class="hljs-title">description</span>&gt;</span>
@@ -1457,9 +1457,9 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;/<span class="hljs-title">coords</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/thumbs/10b.Shelle 7 -eleven<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/main/10b.Shelle 7 -eleven<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/10b.Shelle 7 -eleven<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/thumbs/10b.Shelle 7 -eleven<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/main/10b.Shelle 7 -eleven<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/10b.Shelle 7 -eleven<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">provider</span>&gt;</span>
@@ -1470,19 +1470,19 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;<span class="hljs-title">hours</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">hours</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/thumbs/1fc.Adamsens Fisk<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/main/1fc.Adamsens Fisk<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/1fc.Adamsens Fisk<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/thumbs/1fc.Adamsens Fisk<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/main/1fc.Adamsens Fisk<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/1fc.Adamsens Fisk<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/thumbs/1fb.Kærlighed på cykel i Kongernes Nordsjælland<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/main/1fb.Kærlighed på cykel i Kongernes Nordsjælland<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/1fb.Kærlighed på cykel i Kongernes Nordsjælland<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/thumbs/1fb.Kærlighed på cykel i Kongernes Nordsjælland<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/main/1fb.Kærlighed på cykel i Kongernes Nordsjælland<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/1fb.Kærlighed på cykel i Kongernes Nordsjælland<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/thumbs/1fd.Langs den danske riviera<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/main/1fd.Langs den danske riviera<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/1fd.Langs den danske riviera<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/thumbs/1fd.Langs den danske riviera<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/main/1fd.Langs den danske riviera<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/1fd.Langs den danske riviera<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">provider</span>&gt;</span>
@@ -1499,9 +1499,9 @@ Otherwise result is not affected.</p>
     </span>}</span>,
     "<span class="hljs-attribute">images</span>": <span class="hljs-value">[
       {
-        "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/thumbs/10b.Shelle 7 -eleven"</span></span>,
-        "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/main/10b.Shelle 7 -eleven"</span></span>,
-        "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/10b.Shelle 7 -eleven"</span>
+        "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/thumbs/10b.Shelle 7 -eleven"</span></span>,
+        "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/main/10b.Shelle 7 -eleven"</span></span>,
+        "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/10b.Shelle 7 -eleven"</span>
       </span>}
     ]
   </span>},
@@ -1514,19 +1514,19 @@ Otherwise result is not affected.</p>
     "<span class="hljs-attribute">coords</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
     "<span class="hljs-attribute">images</span>": <span class="hljs-value">[
       {
-        "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/thumbs/1fc.Adamsens Fisk"</span></span>,
-        "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/main/1fc.Adamsens Fisk"</span></span>,
-        "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/1fc.Adamsens Fisk"</span>
+        "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/thumbs/1fc.Adamsens Fisk"</span></span>,
+        "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/main/1fc.Adamsens Fisk"</span></span>,
+        "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/1fc.Adamsens Fisk"</span>
       </span>},
       {
-        "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/thumbs/1fb.Kærlighed på cykel i Kongernes Nordsjælland"</span></span>,
-        "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/main/1fb.Kærlighed på cykel i Kongernes Nordsjælland"</span></span>,
-        "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/1fb.Kærlighed på cykel i Kongernes Nordsjælland"</span>
+        "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/thumbs/1fb.Kærlighed på cykel i Kongernes Nordsjælland"</span></span>,
+        "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/main/1fb.Kærlighed på cykel i Kongernes Nordsjælland"</span></span>,
+        "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/1fb.Kærlighed på cykel i Kongernes Nordsjælland"</span>
       </span>},
       {
-        "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/thumbs/1fd.Langs den danske riviera"</span></span>,
-        "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/main/1fd.Langs den danske riviera"</span></span>,
-        "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"http://dev.alletidersapi.com/upload/00/000/1fd.Langs den danske riviera"</span>
+        "<span class="hljs-attribute">thumb</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/thumbs/1fd.Langs den danske riviera"</span></span>,
+        "<span class="hljs-attribute">main</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/main/1fd.Langs den danske riviera"</span></span>,
+        "<span class="hljs-attribute">org</span>": <span class="hljs-value"><span class="hljs-string">"https://dev.alletidersapi.com/upload/00/000/1fd.Langs den danske riviera"</span>
       </span>}
     ]
   </span>}
@@ -1538,7 +1538,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">provider</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/provider"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"6"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">provider</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/provider"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"6"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>Skjalm Hvide Hotel<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">description</span>&gt;</span>Et godt gammelt hotel.<span class="hljs-tag">&lt;/<span class="hljs-title">description</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">contact</span>&gt;</span>Telefon: 56 32 65 23<span class="hljs-tag">&lt;/<span class="hljs-title">contact</span>&gt;</span>
@@ -1548,16 +1548,16 @@ Otherwise result is not affected.</p>
         <span class="hljs-tag">&lt;<span class="hljs-title">longitude</span>&gt;</span>-1.8041802729387393e230<span class="hljs-tag">&lt;/<span class="hljs-title">longitude</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">coords</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">links</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"da"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"local"</span>&gt;</span>http://google.dk<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"local"</span>&gt;</span>http://google.com<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"da"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"national"</span>&gt;</span>http://yahoo.dk<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"national"</span>&gt;</span>http://yahoo.com<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"da"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"local"</span>&gt;</span>https://google.dk<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"local"</span>&gt;</span>https://google.com<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"da"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"national"</span>&gt;</span>https://yahoo.dk<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"national"</span>&gt;</span>https://yahoo.com<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">links</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">images</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/thumbs/006.png<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/main/006.png<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>http://dev.alletidersapi.com/upload/00/000/006.png<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">thumb</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/thumbs/006.png<span class="hljs-tag">&lt;/<span class="hljs-title">thumb</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">main</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/main/006.png<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">org</span>&gt;</span>https://dev.alletidersapi.com/upload/00/000/006.png<span class="hljs-tag">&lt;/<span class="hljs-title">org</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">images</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">provider</span>&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">applicaiton/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
@@ -1574,34 +1574,34 @@ Otherwise result is not affected.</p>
             "<span class="hljs-attribute">link</span>":<span class="hljs-value">{
                     "<span class="hljs-attribute">lang</span>":<span class="hljs-value"><span class="hljs-string">"da"</span></span>,
                     "<span class="hljs-attribute">type</span>":<span class="hljs-value"><span class="hljs-string">"local"</span></span>,
-                    "<span class="hljs-attribute">link</span>":<span class="hljs-value"><span class="hljs-string">"http://google.dk"</span>
+                    "<span class="hljs-attribute">link</span>":<span class="hljs-value"><span class="hljs-string">"https://google.dk"</span>
             </span>}</span>,
             "<span class="hljs-attribute">link</span>":<span class="hljs-value">{
                     "<span class="hljs-attribute">lang</span>":<span class="hljs-value"><span class="hljs-string">"en"</span></span>,
                     "<span class="hljs-attribute">type</span>":<span class="hljs-value"><span class="hljs-string">"local"</span></span>,
-                    "<span class="hljs-attribute">link</span>":<span class="hljs-value"><span class="hljs-string">"http://google.com"</span>
+                    "<span class="hljs-attribute">link</span>":<span class="hljs-value"><span class="hljs-string">"https://google.com"</span>
             </span>}</span>,
             "<span class="hljs-attribute">link</span>":<span class="hljs-value">{
                     "<span class="hljs-attribute">lang</span>":<span class="hljs-value"><span class="hljs-string">"da"</span></span>,
                     "<span class="hljs-attribute">type</span>":<span class="hljs-value"><span class="hljs-string">"national"</span></span>,
-                    "<span class="hljs-attribute">link</span>":<span class="hljs-value"><span class="hljs-string">"http://yahoo.dk"</span>
+                    "<span class="hljs-attribute">link</span>":<span class="hljs-value"><span class="hljs-string">"https://yahoo.dk"</span>
             </span>}</span>,
             "<span class="hljs-attribute">link</span>":<span class="hljs-value">{
                     "<span class="hljs-attribute">lang</span>":<span class="hljs-value"><span class="hljs-string">"en"</span></span>,
                     "<span class="hljs-attribute">type</span>":<span class="hljs-value"><span class="hljs-string">"national"</span></span>,
-                    "<span class="hljs-attribute">link</span>":<span class="hljs-value"><span class="hljs-string">"http://yahoo.com"</span>
+                    "<span class="hljs-attribute">link</span>":<span class="hljs-value"><span class="hljs-string">"https://yahoo.com"</span>
             </span>}</span>,
     }</span>,
     "<span class="hljs-attribute">images</span>":<span class="hljs-value">[
         {
-            "<span class="hljs-attribute">thumb</span>":<span class="hljs-value"><span class="hljs-string">"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/006.png"</span></span>,
-            "<span class="hljs-attribute">main</span>":<span class="hljs-value"><span class="hljs-string">"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/006.png"</span></span>,
-            "<span class="hljs-attribute">org</span>":<span class="hljs-value"><span class="hljs-string">"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/006.png"</span>
+            "<span class="hljs-attribute">thumb</span>":<span class="hljs-value"><span class="hljs-string">"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/006.png"</span></span>,
+            "<span class="hljs-attribute">main</span>":<span class="hljs-value"><span class="hljs-string">"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/006.png"</span></span>,
+            "<span class="hljs-attribute">org</span>":<span class="hljs-value"><span class="hljs-string">"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/006.png"</span>
         </span>}
     ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="barcode-details-and-usage-history" class="resource-group"><h2 class="group-heading">Barcode Details and Usage History <a href="#barcode-details-and-usage-history" class="permalink">&para;</a></h2><div id="barcode-details-and-usage-history-ticket-list" class="resource"><h3 class="resource-heading">Ticket List <a href="#barcode-details-and-usage-history-ticket-list" class="permalink">&nbsp;&para;</a></h3><div id="barcode-details-and-usage-history-ticket-list-get" class="action get"><h4 class="action-heading"><div class="name">Get Barcode Details and History</div><a href="#barcode-details-and-usage-history-ticket-list-get" class="method get">GET</a><code class="uri">/channel/ticket-identity</code></h4><p>Returns barcode history and details.</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://alletidersapi.dk</span>/channel/ticket-identity</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">ticketIdentities</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/ticket-identity"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">ticketIdentities</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/ticket-identity"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">ticketIdentity</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"23"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">type</span>&gt;</span>barcode<span class="hljs-tag">&lt;/<span class="hljs-title">type</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">code</span>&gt;</span>8705647250635<span class="hljs-tag">&lt;/<span class="hljs-title">code</span>&gt;</span>
@@ -1656,7 +1656,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">ticketIdentity</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/ticket-identity"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">ticketIdentity</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/ticket-identity"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">id</span>&gt;</span>805<span class="hljs-tag">&lt;/<span class="hljs-title">id</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">type</span>&gt;</span>barcode<span class="hljs-tag">&lt;/<span class="hljs-title">type</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">code</span>&gt;</span>1234561234567<span class="hljs-tag">&lt;/<span class="hljs-title">code</span>&gt;</span>
@@ -1745,7 +1745,7 @@ Otherwise result is not affected.</p>
 </dd><dt>currency</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>DKK</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>EUR</span></span><p>The currency to use in ISO 4217 format</p>
 </dd><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">errors</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/ticket-identity"</span>/&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+<span class="hljs-tag">&lt;<span class="hljs-title">errors</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/ticket-identity"</span>/&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">errors</span>": <span class="hljs-value">[]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>420</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">error</span> <span class="hljs-attribute">application</span>=<span class="hljs-value">"Product Channel Manager (PCM)"</span>&gt;</span>
@@ -1772,7 +1772,7 @@ Otherwise result is not affected.</p>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="language,-currency,-sales-agreements-and-batch-requests" class="resource-group"><h2 class="group-heading">Language, Currency, Sales Agreements and Batch Requests <a href="#language,-currency,-sales-agreements-and-batch-requests" class="permalink">&para;</a></h2><div id="language,-currency,-sales-agreements-and-batch-requests-supported-languages" class="resource"><h3 class="resource-heading">Supported Languages <a href="#language,-currency,-sales-agreements-and-batch-requests-supported-languages" class="permalink">&nbsp;&para;</a></h3><div id="language,-currency,-sales-agreements-and-batch-requests-supported-languages-get" class="action get"><h4 class="action-heading"><div class="name">Get List of Languages</div><a href="#language,-currency,-sales-agreements-and-batch-requests-supported-languages-get" class="method get">GET</a><code class="uri">/channel/language</code></h4><p>Retrieve a list of supported languages.</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://alletidersapi.dk</span>/channel/language</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">languages</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/language"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">languages</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/language"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">language</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"1"</span> <span class="hljs-attribute">code</span>=<span class="hljs-value">"da"</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">"da_DK"</span>&gt;</span>danish<span class="hljs-tag">&lt;/<span class="hljs-title">language</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">language</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"2"</span> <span class="hljs-attribute">code</span>=<span class="hljs-value">"en"</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">"en_GB"</span>&gt;</span>english<span class="hljs-tag">&lt;/<span class="hljs-title">language</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">language</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"3"</span> <span class="hljs-attribute">code</span>=<span class="hljs-value">"de"</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">"de_DE"</span>&gt;</span>german<span class="hljs-tag">&lt;/<span class="hljs-title">language</span>&gt;</span>
@@ -1819,7 +1819,7 @@ Otherwise result is not affected.</p>
 ]</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="language,-currency,-sales-agreements-and-batch-requests-supported-currencies" class="resource"><h3 class="resource-heading">Supported Currencies <a href="#language,-currency,-sales-agreements-and-batch-requests-supported-currencies" class="permalink">&nbsp;&para;</a></h3><div id="language,-currency,-sales-agreements-and-batch-requests-supported-currencies-get" class="action get"><h4 class="action-heading"><div class="name">Get supported currencies</div><a href="#language,-currency,-sales-agreements-and-batch-requests-supported-currencies-get" class="method get">GET</a><code class="uri">/channel/currency?format={format}</code></h4><p>Retrieve a list of supported currencies.</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://alletidersapi.dk</span>/channel/currency?format=<span class="hljs-attribute" title="format">xml</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>format</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>json</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>xml</span></span><p>Either json or xml.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">currencies</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/currency"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">currencies</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/currency"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">currency</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"1"</span>&gt;</span>DKK<span class="hljs-tag">&lt;/<span class="hljs-title">currency</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">currency</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"2"</span>&gt;</span>EUR<span class="hljs-tag">&lt;/<span class="hljs-title">currency</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">currency</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"3"</span>&gt;</span>USD<span class="hljs-tag">&lt;/<span class="hljs-title">currency</span>&gt;</span>
@@ -1903,7 +1903,7 @@ Otherwise result is not affected.</p>
 </tbody>
 </table>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://alletidersapi.dk</span>/channel/sales-agreement</span></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">salesAgreements</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/salesAgreement"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">salesAgreements</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/salesAgreement"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">salesAgreement</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"1"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>Unnamed agreement<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">from</span>&gt;</span>2013-10-22T00:00:00+02:00<span class="hljs-tag">&lt;/<span class="hljs-title">from</span>&gt;</span>
@@ -1967,7 +1967,7 @@ The path begins with resource name, not with ‘channel/’.
 Global parameters (language, currency, channel) are set only to batch request (no need to duplicate them for each sub request).
 Only GET requests are supported.</p>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/xml</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">requests</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://gotour.dk/pcm/channel/batch"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">requests</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"https://gotour.dk/pcm/channel/batch"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">request</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"cities"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-title">request</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">request</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"products"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-title">request</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">requests</span>&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{

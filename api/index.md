@@ -7,6 +7,6 @@ layout: default
 
 All of our technical documentation can be found as .apib docs on the links below:
 
-- [Provider API Documentation](http://docs.alletidersapi.dk/api/provider-apiary.html)
-- [Sales Channel API Documentation](http://docs.alletidersapi.dk/api/sales-channel-apiary.html)
-- [iFrame Embed Documentation](http://docs.alletidersapi.dk/embed)
+- [Provider API Documentation](https://docs.alletidersapi.dk/api/provider-apiary.html)
+- [Sales Channel API Documentation](https://docs.alletidersapi.dk/api/sales-channel-apiary.html)
+- [iFrame Embed Documentation](https://docs.alletidersapi.dk/embed)

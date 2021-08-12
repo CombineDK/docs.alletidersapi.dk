@@ -7,9 +7,9 @@ Welcome to the Sales Channel interface documentation of the **Alletiders API**.
 
 ## Useful Links
 
-+ [Documentation](http://docs.alletidersapi.dk/)
-+ [System Overview](http://docs.alletidersapi.dk/overview/)
-+ [Provider Documentation](http://docs.alletidersapi.dk/api/provider-apiary.html)
++ [Documentation](https://docs.alletidersapi.dk/)
++ [System Overview](https://docs.alletidersapi.dk/overview/)
++ [Provider Documentation](https://docs.alletidersapi.dk/api/provider-apiary.html)
 
 ## Document purpose
 
@@ -106,7 +106,7 @@ Create a new order. All attributes are optional in the initial call. Lower the a
         + Product (array) - Single dimensional array with the following keys
             + id (number) - product identifier
             + qty (number) - quantity, CANNOT be changed later!
-            + allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the [ProductAllotment](http://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments) resource.
+            + allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the [ProductAllotment](https://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments) resource.
     + channel (string, required) - The name of the channel.
     + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
         + Default: `DKK`
@@ -149,7 +149,7 @@ Updates an order, setting currency, address, orderlines etc. It is only possible
         + Product (array) - Single dimensional array with the following keys
             + id (number) - product identifier
             + qty (number) - quantity, CANNOT be changed later!
-            + allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the [ProductAllotment](http://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments) resource.
+            + allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the [ProductAllotment](https://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments) resource.
     + channel (string, required) - The name of the channel.
     + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
         + Default: `DKK`
@@ -174,7 +174,7 @@ Updates an order, setting currency, address, orderlines etc. It is only possible
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <order xmlns="http://gotour.dk/pcm/channel/order" id="147">
+            <order xmlns="https://gotour.dk/pcm/channel/order" id="147">
                 <insertTime>2013-05-16T10:21:47+02:00</insertTime>
                 <modified>2013-05-16T10:34:58+02:00</modified>
                 <price>6500</price>
@@ -335,7 +335,7 @@ Retrieves all the information about the order, including order details, currency
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <order xmlns="http://gotour.dk/pcm/channel/order" id="147">
+            <order xmlns="https://gotour.dk/pcm/channel/order" id="147">
                 <insertTime>2013-05-16T10:21:47+02:00</insertTime>
                 <modified>2013-05-16T10:34:58+02:00</modified>
                 <price>6500</price>
@@ -506,7 +506,7 @@ Retrieves all the items in the order. The order is identified via session cookie
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <orderLines xmlns="http://gotour.dk/pcm/channel/order-line">
+            <orderLines xmlns="https://gotour.dk/pcm/channel/order-line">
                 <orderLine id="764" productId="10">
                 <title>1 dags leje af voksencykel (herre)</title>
                 <quantity>1</quantity>
@@ -626,7 +626,7 @@ Retrieve payment action url and required form fields. The data received is only 
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <transaction xmlns="http://gotour.dk/pcm/channel/payment-transaction">
+            <transaction xmlns="https://gotour.dk/pcm/channel/payment-transaction">
                 <action>https://secure.quickpay.dk/form/</action>
                 <fields>
                     <protocol>3</protocol>
@@ -636,9 +636,9 @@ Retrieve payment action url and required form fields. The data received is only 
                     <ordernumber>an_dtr_dev_test_72</ordernumber>
                     <amount>6500</amount>
                     <currency>DKK</currency>
-                    <continueurl>http://www.google.com</continueurl>
-                    <cancelurl>http://www.google.com</cancelurl>
-                    <callbackurl>http://dev.alletidersapi.com/channel/payment-callback?channel=Drupal</callbackurl>
+                    <continueurl>https://www.google.com</continueurl>
+                    <cancelurl>https://www.google.com</cancelurl>
+                    <callbackurl>https://dev.alletidersapi.com/channel/payment-callback?channel=Drupal</callbackurl>
                     <autocapture>0</autocapture>
                     <description></description>
                     <ipaddress>192.168.0.1</ipaddress>
@@ -660,9 +660,9 @@ Retrieve payment action url and required form fields. The data received is only 
                     "ordernumber":"an_dtr_dev_test_72",
                     "amount":6500,
                     "currency":"DKK",
-                    "continueurl":"http:\/\/www.google.com",
-                    "cancelurl":"http:\/\/www.google.com",
-                    "callbackurl":"http:\/\/dev.alletidersapi.com\/channel\/payment-callback?channel=Drupal",
+                    "continueurl":"https:\/\/www.google.com",
+                    "cancelurl":"https:\/\/www.google.com",
+                    "callbackurl":"https:\/\/dev.alletidersapi.com\/channel\/payment-callback?channel=Drupal",
                     "autocapture":"0",
                     "description":"",
                     "ipaddress":"192.168.0.1",
@@ -722,7 +722,7 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
     + Body
  
             <?xml version="1.0" encoding="UTF-8"?>
-            <products xmlns="http://gotour.dk/pcm/channel/product" count="12">
+            <products xmlns="https://gotour.dk/pcm/channel/product" count="12">
                 <product id="9" ver="5" providerId="8">
                     <insertTime>2013-02-07T13:51:43+01:00</insertTime>
                     <salesEmail>khe@gotour.dk</salesEmail>
@@ -746,9 +746,9 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
                     <providerName>Test udbyder</providerName>
                     <images>
                         <image>
-                            <thumb>http://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg</thumb>
-                            <main>http://dev.alletidersapi.com/upload/00/000/main/03d.jpg</main>
-                            <org>http://dev.alletidersapi.com/upload/00/000/03d.jpg</org>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/03d.jpg</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/03d.jpg</org>
                         </image>
                     </images>
                 </product>
@@ -771,9 +771,9 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
                     <providerName>Test udbyder</providerName>
                     <images>
                         <image>
-                            <thumb>http://dev.alletidersapi.com/upload/00/000/thumbs/050.jpg</thumb>
-                            <main>http://dev.alletidersapi.com/upload/00/000/main/050.jpg</main>
-                            <org>http://dev.alletidersapi.com/upload/00/000/050.jpg</org>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/050.jpg</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/050.jpg</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/050.jpg</org>
                         </image>
                     </images>
                     <allotments>
@@ -843,9 +843,9 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
                     </allotments>
                     <images>
                         <image>
-                            <thumb>http://dev-cpm.dk/upload/00/000/thumbs/12a.png</thumb>
-                            <main>http://dev-cpm.dk/upload/00/000/main/12a.png</main>
-                            <org>http://dev-cpm.dk/upload/00/000/12a.png</org>
+                            <thumb>https://dev-cpm.dk/upload/00/000/thumbs/12a.png</thumb>
+                            <main>https://dev-cpm.dk/upload/00/000/main/12a.png</main>
+                            <org>https://dev-cpm.dk/upload/00/000/12a.png</org>
                         </image>
                     </images>
                 </product>
@@ -881,9 +881,9 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
                         "providerName":"Test udbyder",
                         "images":[
                             {
-                                "thumb":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/03d.jpg",
-                                "main":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/03d.jpg",
-                                "org":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/03d.jpg"
+                                "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/03d.jpg",
+                                "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/03d.jpg",
+                                "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/03d.jpg"
                             }
                         ],
                         "allotments":[
@@ -917,9 +917,9 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
                         "providerName":"Test udbyder",
                         "images":[
                             {
-                                "thumb":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/050.jpg",
-                                "main":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/050.jpg",
-                                "org":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/050.jpg"
+                                "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/050.jpg",
+                                "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/050.jpg",
+                                "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/050.jpg"
                             }
                         ]
                     },
@@ -987,9 +987,9 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
                         },
                         "images":[
                             {
-                                "thumb":"http:\/\/dev-cpm.dk\/upload\/00\/000\/thumbs\/12a.png",
-                                "main":"http:\/\/dev-cpm.dk\/upload\/00\/000\/main\/12a.png",
-                                "org":"http:\/\/dev-cpm.dk\/upload\/00\/000\/12a.png"
+                                "thumb":"https:\/\/dev-cpm.dk\/upload\/00\/000\/thumbs\/12a.png",
+                                "main":"https:\/\/dev-cpm.dk\/upload\/00\/000\/main\/12a.png",
+                                "org":"https:\/\/dev-cpm.dk\/upload\/00\/000\/12a.png"
                             }
                         ]
                     }
@@ -1015,7 +1015,7 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <product xmlns="http://gotour.dk/pcm/channel/product" id="9" ver="5" providerId="8">
+            <product xmlns="https://gotour.dk/pcm/channel/product" id="9" ver="5" providerId="8">
                 <insertTime>2013-02-07T13:51:43+01:00</insertTime>
                 <salesEmail>khe@gotour.dk</salesEmail>
                 <isFree>0</isFree>
@@ -1039,9 +1039,9 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
                 <providerName>Test udbyder</providerName>
                 <images>
                     <image>
-                        <thumb>http://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg</thumb>
-                        <main>http://dev.alletidersapi.com/upload/00/000/main/03d.jpg</main>
-                        <org>http://dev.alletidersapi.com/upload/00/000/03d.jpg</org>
+                        <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg</thumb>
+                        <main>https://dev.alletidersapi.com/upload/00/000/main/03d.jpg</main>
+                        <org>https://dev.alletidersapi.com/upload/00/000/03d.jpg</org>
                     </image>
                 </images>
             </product>
@@ -1075,9 +1075,9 @@ Retrieve a list of products matching search criteria. Multiple optional paramete
                 "providerName":"Test udbyder",
                 "images":[
                     {
-                        "thumb":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/03d.jpg",
-                        "main":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/03d.jpg",
-                        "org":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/03d.jpg"
+                        "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/03d.jpg",
+                        "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/03d.jpg",
+                        "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/03d.jpg"
                     }
                 ],
                 "allotments":[
@@ -1118,7 +1118,7 @@ Retrieve a list of popular products.
     + Body
      
             <?xml version="1.0" encoding="UTF-8"?>
-            <popularProducts xmlns="http://gotour.dk/pcm/channel/popular-product">
+            <popularProducts xmlns="https://gotour.dk/pcm/channel/popular-product">
                 <popularProduct id="18" providerId="10">
                     <title>Entrebillet - Det Tekniske Museum - 1 Voksen</title>
                     <lastSaleDate>2013-02-26T14:40:58+01:00</lastSaleDate>
@@ -1219,7 +1219,7 @@ Retrieve a list of product allotments.
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <allotments xmlns="http://gotour.dk/pcm/channel/product-allotment" count="63">
+            <allotments xmlns="https://gotour.dk/pcm/channel/product-allotment" count="63">
                 <allotment id="3340">
                     <bookingEventId>181</bookingEventId>
                     <start>2013-05-22T01:00:00+02:00</start>
@@ -1400,7 +1400,7 @@ Retrieve a list of cities that have at least one product for sale at this point 
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <cities xmlns="http://gotour.dk/pcm/channel/city">
+            <cities xmlns="https://gotour.dk/pcm/channel/city">
                 <city id="2439">
                     <title>Gilleleje</title>
                 </city>
@@ -1454,7 +1454,7 @@ Retrieve a list of active themes. Products can be filtered using values from thi
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <themes xmlns="http://gotour.dk/pcm/channel/theme">
+            <themes xmlns="https://gotour.dk/pcm/channel/theme">
                 <theme id="1">
                     <name>Theme 1</name>
                     <descriptionShort></descriptionShort>
@@ -1508,7 +1508,7 @@ Retrieve related products to products added to the shopping cart. The products a
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <cart-related-products xmlns="http://gotour.dk/pcm/channel/cart-related-products" count="4">
+            <cart-related-products xmlns="https://gotour.dk/pcm/channel/cart-related-products" count="4">
                 <product id="4" ver="3" providerId="1">
                     <insertTime>2013-07-09T12:58:01+02:00</insertTime>
                     <salesEmail>khe@gotour.dk</salesEmail>
@@ -1523,9 +1523,9 @@ Retrieve related products to products added to the shopping cart. The products a
                     <isAccommodation>0</isAccommodation>
                     <images>
                         <image>
-                            <thumb>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02d.jpg</thumb>
-                            <main>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02d.jpg</main>
-                            <org>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02d.jpg</org>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02d.jpg</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02d.jpg</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02d.jpg</org>
                         </image>
                     </images>
                 </product>
@@ -1543,14 +1543,14 @@ Retrieve related products to products added to the shopping cart. The products a
                     <isAccommodation></isAccommodation>
                     <images>
                         <image>
-                            <thumb>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/023.jpg</thumb>
-                            <main>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/023.jpg</main>
-                            <org>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/023.jpg</org>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/023.jpg</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/023.jpg</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/023.jpg</org>
                         </image>
                         <image>
-                            <thumb>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/022.jpg</thumb>
-                            <main>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/022.jpg</main>
-                            <org>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/022.jpg</org>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/022.jpg</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/022.jpg</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/022.jpg</org>
                         </image>
                     </images>
                 </product>
@@ -1568,9 +1568,9 @@ Retrieve related products to products added to the shopping cart. The products a
                     <isAccommodation>1</isAccommodation>
                     <images>
                         <image>
-                            <thumb>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02c.jpg</thumb>
-                            <main>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02c.jpg</main>
-                            <org>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02c.jpg</org>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02c.jpg</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02c.jpg</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02c.jpg</org>
                         </image>
                     </images>
                 </product>
@@ -1588,9 +1588,9 @@ Retrieve related products to products added to the shopping cart. The products a
                     <isAccommodation>0</isAccommodation>
                     <images>
                         <image>
-                            <thumb>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02e.JPG</thumb>
-                            <main>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02e.JPG</main>
-                            <org>http://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02e.JPG</org>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02e.JPG</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02e.JPG</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02e.JPG</org>
                         </image>
                     </images>
                 </product>
@@ -1619,9 +1619,9 @@ Retrieve related products to products added to the shopping cart. The products a
                     "isAccommodation":"0",
                     "images":[
                         {
-                            "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02e.JPG",
-                            "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02e.JPG",
-                            "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02e.JPG"
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02e.JPG",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02e.JPG",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02e.JPG"
                         }
                     ]
                 },
@@ -1643,9 +1643,9 @@ Retrieve related products to products added to the shopping cart. The products a
                     "isAccommodation":"1",
                     "images":[
                         {
-                            "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02c.jpg",
-                            "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02c.jpg",
-                            "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02c.jpg"
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02c.jpg",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02c.jpg",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02c.jpg"
                         }
                     ]
                },
@@ -1666,14 +1666,14 @@ Retrieve related products to products added to the shopping cart. The products a
                     "isAccommodation":"",
                     "images":[
                         {
-                            "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/023.jpg",
-                            "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/023.jpg",
-                            "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/023.jpg"
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/023.jpg",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/023.jpg",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/023.jpg"
                         },
                         {
-                            "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/022.jpg",
-                            "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/022.jpg",
-                            "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/022.jpg"
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/022.jpg",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/022.jpg",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/022.jpg"
                         }
                     ]
                },
@@ -1695,9 +1695,9 @@ Retrieve related products to products added to the shopping cart. The products a
                     "isAccommodation":"",
                     "images":[
                         {
-                            "thumb":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/021.jpg",
-                            "main":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/021.jpg",
-                            "org":"http:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/021.jpg"
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/021.jpg",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/021.jpg",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/021.jpg"
                         }
                     ]
                }
@@ -1728,7 +1728,7 @@ Retrieve a list of product providers. Optionally filtering by city and products 
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <providers xmlns="http://gotour.dk/pcm/channel/provider">
+            <providers xmlns="https://gotour.dk/pcm/channel/provider">
                 <provider id="22">
                     <name>7-Eleven</name>
                     <description>Benzin station med kiosk salg, beliggende ved den store rundkørsel i Frederiksværk.&#13;&#13;</description>
@@ -1740,9 +1740,9 @@ Retrieve a list of product providers. Optionally filtering by city and products 
                     </coords>
                     <images>
                         <image>
-                            <thumb>http://dev.alletidersapi.com/upload/00/000/thumbs/10b.Shelle 7 -eleven</thumb>
-                            <main>http://dev.alletidersapi.com/upload/00/000/main/10b.Shelle 7 -eleven</main>
-                            <org>http://dev.alletidersapi.com/upload/00/000/10b.Shelle 7 -eleven</org>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/10b.Shelle 7 -eleven</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/10b.Shelle 7 -eleven</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/10b.Shelle 7 -eleven</org>
                         </image>
                     </images>
                 </provider>
@@ -1753,19 +1753,19 @@ Retrieve a list of product providers. Optionally filtering by city and products 
                     <hours></hours>
                     <images>
                         <image>
-                            <thumb>http://dev.alletidersapi.com/upload/00/000/thumbs/1fc.Adamsens Fisk</thumb>
-                            <main>http://dev.alletidersapi.com/upload/00/000/main/1fc.Adamsens Fisk</main>
-                            <org>http://dev.alletidersapi.com/upload/00/000/1fc.Adamsens Fisk</org>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/1fc.Adamsens Fisk</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/1fc.Adamsens Fisk</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/1fc.Adamsens Fisk</org>
                         </image>
                         <image>
-                            <thumb>http://dev.alletidersapi.com/upload/00/000/thumbs/1fb.Kærlighed på cykel i Kongernes Nordsjælland</thumb>
-                            <main>http://dev.alletidersapi.com/upload/00/000/main/1fb.Kærlighed på cykel i Kongernes Nordsjælland</main>
-                            <org>http://dev.alletidersapi.com/upload/00/000/1fb.Kærlighed på cykel i Kongernes Nordsjælland</org>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/1fb.Kærlighed på cykel i Kongernes Nordsjælland</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/1fb.Kærlighed på cykel i Kongernes Nordsjælland</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/1fb.Kærlighed på cykel i Kongernes Nordsjælland</org>
                         </image>
                         <image>
-                            <thumb>http://dev.alletidersapi.com/upload/00/000/thumbs/1fd.Langs den danske riviera</thumb>
-                            <main>http://dev.alletidersapi.com/upload/00/000/main/1fd.Langs den danske riviera</main>
-                            <org>http://dev.alletidersapi.com/upload/00/000/1fd.Langs den danske riviera</org>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/1fd.Langs den danske riviera</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/1fd.Langs den danske riviera</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/1fd.Langs den danske riviera</org>
                         </image>
                     </images>
                 </provider>
@@ -1788,9 +1788,9 @@ Retrieve a list of product providers. Optionally filtering by city and products 
                     },
                     "images":[
                         {
-                            "thumb":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/10b.Shelle 7 -eleven",
-                            "main":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/10b.Shelle 7 -eleven",
-                            "org":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/10b.Shelle 7 -eleven"
+                            "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/10b.Shelle 7 -eleven",
+                            "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/10b.Shelle 7 -eleven",
+                            "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/10b.Shelle 7 -eleven"
                         }
                     ]
                 },
@@ -1803,19 +1803,19 @@ Retrieve a list of product providers. Optionally filtering by city and products 
                     "coords":null,
                     "images":[
                         {
-                            "thumb":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fc.Adamsens Fisk",
-                            "main":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fc.Adamsens Fisk",
-                            "org":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fc.Adamsens Fisk"
+                            "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fc.Adamsens Fisk",
+                            "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fc.Adamsens Fisk",
+                            "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fc.Adamsens Fisk"
                         },
                         {
-                            "thumb":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland",
-                            "main":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland",
-                            "org":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland"
+                            "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland",
+                            "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland",
+                            "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland"
                         },
                         {
-                            "thumb":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fd.Langs den danske riviera",
-                            "main":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fd.Langs den danske riviera",
-                            "org":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fd.Langs den danske riviera"
+                            "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fd.Langs den danske riviera",
+                            "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fd.Langs den danske riviera",
+                            "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fd.Langs den danske riviera"
                         }
                     ]
                }
@@ -1844,7 +1844,7 @@ Retrieve provider details
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <provider xmlns="http://gotour.dk/pcm/channel/provider" id="6">
+            <provider xmlns="https://gotour.dk/pcm/channel/provider" id="6">
                 <name>Skjalm Hvide Hotel</name>
                 <description>Et godt gammelt hotel.</description>
                 <contact>Telefon: 56 32 65 23</contact>
@@ -1854,16 +1854,16 @@ Retrieve provider details
                     <longitude>-1.8041802729387393e230</longitude>
                 </coords>
                 <links>
-                        <link lang="da" type="local">http://google.dk</link>
-                        <link lang="en" type="local">http://google.com</link>
-                        <link lang="da" type="national">http://yahoo.dk</link>
-                        <link lang="en" type="national">http://yahoo.com</link>
+                        <link lang="da" type="local">https://google.dk</link>
+                        <link lang="en" type="local">https://google.com</link>
+                        <link lang="da" type="national">https://yahoo.dk</link>
+                        <link lang="en" type="national">https://yahoo.com</link>
                 </links>
                 <images>
                     <image>
-                        <thumb>http://dev.alletidersapi.com/upload/00/000/thumbs/006.png</thumb>
-                        <main>http://dev.alletidersapi.com/upload/00/000/main/006.png</main>
-                        <org>http://dev.alletidersapi.com/upload/00/000/006.png</org>
+                        <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/006.png</thumb>
+                        <main>https://dev.alletidersapi.com/upload/00/000/main/006.png</main>
+                        <org>https://dev.alletidersapi.com/upload/00/000/006.png</org>
                     </image>
                 </images>
             </provider>
@@ -1886,29 +1886,29 @@ Retrieve provider details
                         "link":{
                                 "lang":"da",
                                 "type":"local",
-                                "link":"http://google.dk"
+                                "link":"https://google.dk"
                         },
                         "link":{
                                 "lang":"en",
                                 "type":"local",
-                                "link":"http://google.com"
+                                "link":"https://google.com"
                         },
                         "link":{
                                 "lang":"da",
                                 "type":"national",
-                                "link":"http://yahoo.dk"
+                                "link":"https://yahoo.dk"
                         },
                         "link":{
                                 "lang":"en",
                                 "type":"national",
-                                "link":"http://yahoo.com"
+                                "link":"https://yahoo.com"
                         },
                 },
                 "images":[
                     {
-                        "thumb":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/006.png",
-                        "main":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/006.png",
-                        "org":"http:\/\/dev.alletidersapi.com\/upload\/00\/000\/006.png"
+                        "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/006.png",
+                        "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/006.png",
+                        "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/006.png"
                     }
                 ]
             }
@@ -1925,7 +1925,7 @@ Returns barcode history and details.
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <ticketIdentities xmlns="http://gotour.dk/pcm/channel/ticket-identity">
+            <ticketIdentities xmlns="https://gotour.dk/pcm/channel/ticket-identity">
                 <ticketIdentity id="23">
                     <type>barcode</type>
                     <code>8705647250635</code>
@@ -2002,7 +2002,7 @@ Retrieve ticket identity details
 
     + Body
             <?xml version="1.0" encoding="UTF-8"?>
-            <ticketIdentity xmlns="http://gotour.dk/pcm/channel/ticket-identity">
+            <ticketIdentity xmlns="https://gotour.dk/pcm/channel/ticket-identity">
                 <id>805</id>
                 <type>barcode</type>
                 <code>1234561234567</code>
@@ -2086,7 +2086,7 @@ Tries to scan a given ticket. A list of errors will be returned. For more detail
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <errors xmlns="http://gotour.dk/pcm/channel/ticket-identity"/>
+            <errors xmlns="https://gotour.dk/pcm/channel/ticket-identity"/>
 
 + Response 200 (application/json)
 
@@ -2142,7 +2142,7 @@ Retrieve a list of supported languages.
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <languages xmlns="http://gotour.dk/pcm/channel/language">
+            <languages xmlns="https://gotour.dk/pcm/channel/language">
                 <language id="1" code="da" locale="da_DK">danish</language>
                 <language id="2" code="en" locale="en_GB">english</language>
                 <language id="3" code="de" locale="de_DE">german</language>
@@ -2207,7 +2207,7 @@ Retrieve a list of supported currencies.
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <currencies xmlns="http://gotour.dk/pcm/channel/currency">
+            <currencies xmlns="https://gotour.dk/pcm/channel/currency">
                 <currency id="1">DKK</currency>
                 <currency id="2">EUR</currency>
                 <currency id="3">USD</currency>
@@ -2268,7 +2268,7 @@ Retrieve a list of active sales agreements.
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <salesAgreements xmlns="http://gotour.dk/pcm/channel/salesAgreement">
+            <salesAgreements xmlns="https://gotour.dk/pcm/channel/salesAgreement">
                 <salesAgreement id="1">
                     <name>Unnamed agreement</name>
                     <from>2013-10-22T00:00:00+02:00</from>
@@ -2351,7 +2351,7 @@ This is a special resource, all previously mentioned resources can be accessed t
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <requests xmlns="http://gotour.dk/pcm/channel/batch">
+            <requests xmlns="https://gotour.dk/pcm/channel/batch">
                 <request id="cities">...</request>
                 <request id="products">...</request>
             </requests>

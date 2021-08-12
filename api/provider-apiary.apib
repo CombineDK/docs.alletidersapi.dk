@@ -7,9 +7,9 @@ Welcome to the Provider interface documentation of the **Alletiders API**.
 
 ## Useful Links
 
-+ [Documentation](http://docs.alletidersapi.dk/)
-+ [System Overview](http://docs.alletidersapi.dk/overview/)
-+ [Sales Channel Documentation](http://docs.alletidersapi.dk/api/sales-channel-apiary.html)
++ [Documentation](https://docs.alletidersapi.dk/)
++ [System Overview](https://docs.alletidersapi.dk/overview/)
++ [Sales Channel Documentation](https://docs.alletidersapi.dk/api/sales-channel-apiary.html)
 
 ## Document Purpose
 
@@ -242,7 +242,7 @@ If a line with a different quantity, such as 50, is imported, the current line i
 
 **See example requests**
 
-For more information see the [online documetation](http://docs.alletidersapi.dk/api/).
+For more information see the [online documetation](https://docs.alletidersapi.dk/api/).
 
 + Parameters
     + transaction (number, required) - Transaction ID.
@@ -535,7 +535,7 @@ The GET method will show the current status of the import.
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <errors xmlns="http://gotour.dk/pcm/provider/order-export">
+            <errors xmlns="https://gotour.dk/pcm/provider/order-export">
                 <error>
                     <sequence>1</sequence>
                     <id>18</id>
@@ -604,7 +604,7 @@ Retrieve a list of supported experience types.
     + Body
 
             <?xml version="1.0" encoding="UTF-8" ?>
-            <experience_types xmlns="http://gotour.dk/pcm/provider/experience-type">
+            <experience_types xmlns="https://gotour.dk/pcm/provider/experience-type">
                 <type id="1">Aktivitet</type>
                 <type id="2">Overnatning</type>
                 <type id="3">Transport</type>
@@ -711,7 +711,7 @@ Parameters that you can specify in the request body:
 
 **See example requests**
 
-For more information see the [online documetation](http://docs.alletidersapi.dk/api/).
+For more information see the [online documetation](https://docs.alletidersapi.dk/api/).
 
 + Parameters
     + transaction (number, required) - Transaction ID.
@@ -816,7 +816,7 @@ Warnings
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <errors xmlns="http://gotour.dk/pcm/provider/order-export">
+            <errors xmlns="https://gotour.dk/pcm/provider/order-export">
                 <error>
                     <sequence>1</sequence>
                     <id>18</id>
@@ -829,7 +829,7 @@ Warnings
 
 This method enables the providers to pull a list of orders ready for processing using the Alletiders API. It is then up to the provider to complete the order  process by providing the customer the confirmation mail and the ticket.
 
-![Pull Order](http://docs.alletidersapi.dk/images/apiary/order_anytime.png)
+![Pull Order](https://docs.alletidersapi.dk/images/apiary/order_anytime.png)
 
 ## Order Export [/provider/order-export/?format={format}]
 ### List transactions [GET]
@@ -951,7 +951,7 @@ NOTE: Only if an order is made using a sales channel, will the channel id be spe
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <orders xmlns="http://gotour.dk/pcm/provider/order-export">
+            <orders xmlns="https://gotour.dk/pcm/provider/order-export">
                 <order id="908">
                     <insertTime>2014-09-05T10:17:22+00:00</insertTime>
                     <modified>2014-09-05T10:42:02+00:00</modified>
@@ -1151,7 +1151,7 @@ Depending on the sales channel, Alletiders API can be responsible for sending th
 
 Alternatively, if the sales channel chose to send order confirmations themselves, then the supported barcode types will vary. Please refer to the 'Barcode types' section to decide which barcode name to use.
 
-![Push Order](http://docs.alletidersapi.dk/images/apiary/order_realtime.png)
+![Push Order](https://docs.alletidersapi.dk/images/apiary/order_realtime.png)
 
 The following section describes examples of requests to a given provider. The endpoint is defined for each provider in the administration panel.
 
@@ -1252,7 +1252,7 @@ Retrieve a list of supported languages.
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <languages xmlns="http://gotour.dk/pcm/channel/language">
+            <languages xmlns="https://gotour.dk/pcm/channel/language">
                 <language id="1" code="da" locale="da_DK">danish</language>
                 <language id="2" code="en" locale="en_GB">english</language>
                 <language id="3" code="de" locale="de_DE">german</language>
@@ -1317,7 +1317,7 @@ Retrieve a list of supported currencies.
     + Body
 
             <?xml version="1.0" encoding="UTF-8"?>
-            <currencies xmlns="http://gotour.dk/pcm/provider/currency">
+            <currencies xmlns="https://gotour.dk/pcm/provider/currency">
                 <currency id="1">DKK</currency>
                 <currency id="2">EUR</currency>
                 <currency id="3">USD</currency>
