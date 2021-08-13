@@ -1,0 +1,1365 @@
+FORMAT: 1A
+HOST: https://alletidersapi.dk
+
+# Alletiders API
+
+Welcome to the Provider interface documentation of the **Alletiders API**.
+
+## Useful Links
+
++ [Documentation](https://docs.alletidersapi.dk/)
++ [System Overview](https://docs.alletidersapi.dk/overview/)
++ [Sales Channel Documentation](https://docs.alletidersapi.dk/api/sales-channel-apiary.html)
+
+## Document Purpose
+
+This document describes the API between providers (attractions) and Alletiders API.
+
+## RESTful service
+
+The API uses RESTful web architecture.
+
+Alletiders API implements CRUD functionality on a series of resources allowing product imports, member imports, and order creations.
+
+## Security, authorization, and identity
+
+It is required to use https and basic authentication.
+
+Each provider will be using its own login and hence identity. This will allow Alletiders API to separate the data from the individual providers.
+
+## Auth-token
+
+There is currently no need for an authorization token as we are dealing with pure B2B communication between two trusted servers.
+
+## Data Format
+
+XML is currently the standard supported. For member import, an alternative CSV option is available.
+
+## Barcode types
+
+There are no constraints on the actual barcode types, but it would be good idea to reuse the same barcode type value to avoid duplicates.
+
+Pretty much anything can be sent to the api via member import or via tickets and be treated as barcode type. The same type will be included in order lines when orders are exported.
+
+The following is list is an example list of values that should be used to make integration easier for both parties.
+
+### Supported types
+
++ EAN8
++ EAN13
++ UPC-A
++ UPC-E
++ Code128
++ Code39
++ i25
++ PostNet
+
+
+# Group Product Import
+
+## Create Transaction [/provider/product]
+### Create Transaction [POST]
+
+Create a new product import transaction. The transaction will be used to transfer product data.
+
++ Response 201
+
+    + Headers
+
+            Location: /provider/product/{transaction}
+
+## Import Products [/provider/product/{transaction}]
+### Create/Update Products [PUT]
+
+Create and/or update products. Create or update will be determined by the product id, if it already exists an update will be done, otherwise a new product will be created.
+All product attributes are optional, except the “id” and “type”.  In order to disable a product the sales period must be set to an expired date.
+
+*NOTE:* The request will be completed as soon as the XML document has been transferred. The
+processing of data is done asynchronously afterwards.
+
+Parameters that you can specify in the request body:
+<pre>
+* required
+** needs to be specified for each language [ISO 639-1 standard e.g. da, en]
+</pre>
+<table>
+    <tr>
+        <td>id*</td>
+        <td>
+            product id  [type: int |maxlength: 10]
+        </td>
+    </tr>
+    <tr>
+        <td>type*</td>
+        <td>
+            product type [type: varchar | maxlength: 255]<br/>
+            Possible values:
+            <ul>
+                <li>standard</li>
+                <li>booking</li>
+                <li>accommodation</li>
+                <li>subscription</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>title**</td>
+        <td>
+            product title [type: varchar | maxlength: 255]<br/>
+            Defaults to “?????” if omitted during creation.
+        </td>
+    </tr>
+    <tr>
+        <td>intro**</td>
+        <td>
+            product short description [type: text]<br/>
+            Defaults to “?????” if omitted during creation.
+        </td>
+    </tr>
+    <tr>
+        <td>description**</td>
+        <td>
+            product description [type: text|html]<br/>
+            Defaults to “?????” if omitted during creation.
+        </td>
+    </tr>
+    <tr>
+        <td>externalUrl**</td>
+        <td>
+            The external product booking link [type: text]<br/>
+            If set, the product will become an external product.
+        </td>
+    </tr>
+    <tr>
+        <td>sale</td>
+        <td>
+            This is an array with the following key/value pairs:
+            <ul>
+                <li>from  [type: datetime | format:   Y-m-d\TH:i:sP]</li>
+                <li>to [type: datetime | format: Y-m-d\TH:i:sP]</li>
+                <li>price
+                    <ul>
+                        <li>currency  [ISO 4217 format e.g. EUR, DKK ]</li>
+                        <li>value [type: int] (in cents, to avoid rounding errors)</li>
+                        <li>comment [string]</li>
+                    </ul>
+                </li>
+            </ul>
+            additional options for accommodation only:
+            <ul>
+                <li>interval_length* [number of days/weeks you have to book according to the interval_unit]</li>
+                <li>interval_unit* [possible values: week | day | hour ] </li>
+                <li>week_days* [comma separated list of days as 1-7, 1 = Monday, 7 = Sunday]</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>usage</td>
+        <td>Accommodation products supports usage periods. Usage are created in the same way as sales with the same properties.</td>
+    </tr>
+    <tr>
+        <td>inventory</td>
+        <td>Standard products can have inventory added (positive value = add, negative = substract).
+            <ul>
+                <li>set [type: int](sets/ overrides inventory)</li>
+                <li>update [type: int](updates inventory)</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>owner</td>
+        <td>
+            product owner [type: varchar | maxlength: 80]
+        </td>
+    </tr>
+    <tr>
+        <td>calendar</td>
+        <td>
+            calendar properties for booking products only:
+            <ul>
+                <li>interval_length*  [length of interval as integer value]</li>
+                <li>interval_unit* [possible values: week | day | hour ]</li>
+                <li>sales_deadline*</li>
+                <li>sales_deadline_unit*</li>
+                <li>active* [true |  false]</li>
+                <li>from* [Y-m-d]</li>
+                <li>to* [Y-m-d]</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>separateTickets</td>
+        <td>If tickets should be separated on the product when generating the pdf reciept. [true | false]</td>
+    </tr>
+    <tr>
+        <td>experienceType</td>
+        <td>ID of experience type. The available types can be found with the experience-type api call. [type: int]</td>
+    </tr>
+    <tr>
+        <td>vatFree</td>
+        <td>If product should be vat free or not. [true | false]</td>
+    </tr>
+    <tr>
+        <td>coords</td>
+        <td>
+            Geo-coordinates for the product in decimal degrees (signed degrees format).
+            <ul>
+                <li>latitude [float from -90 to 90, 8 decimal places]</li>
+                <li>longitude [float from -180 to 180, 8 decimal places]</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+#### Calendar lines
+
+For booking and accomodation products it is possible to add calendar lines (\<calendar\>).
+
+A calendar line is uniquely identified by the combination of:
+    <ul>
+        <li>product-id</li>
+        <li>start-date</li>
+        <li>end-date</li>
+        <li>quantity</li>
+    </ul>
+
+#### Active/inactive lines
+When importing a product all the lines are disabled before the actual import and only enabled if there are any matching lines. If there are no matches found on a imported line, it will be created in the system.
+
+As an example, let’s look at an existing product with following calendar data:
+    <ul>
+        <li>product-id: 1</li>
+        <li>start date: 1.September 2013</li>
+        <li>end date: 1.November 2013</li>
+        <li>quantity: 100</li>
+    </ul>
+
+If a line with the same data is imported, the current line is updated to active / inactive.
+
+If a line with a different quantity, such as 50, is imported, the current line is deactivated and a new quantity line will be added with 50.
+
+*A line can not be deleted.*
+
+**See example requests**
+
+For more information see the [online documetation](https://docs.alletidersapi.dk/api/).
+
++ Parameters
+    + transaction (number, required) - Transaction ID.
+
+
++ Request Standard product creation - XML example (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <products>
+                <product id="423">
+                    <title>
+                        <values>
+                            <value lang="da">Entre</value>
+                            <value lang="en">Single day</value>
+                        </values>
+                    </title>
+                    <intro>
+                        <values>
+                            <value lang="da">Entre ...</value>
+                            <value lang="en">Single day ...</value>
+                        </values>
+                    </intro>
+                    <description>
+                        <values>
+                            <value lang="da">Entre billet gyldig for en enkelt dag</value>
+                            <value lang="en">Ticket valid for a single day</value>
+                        </values>
+                    </description>
+                    <type>standard</type>
+                    <sale>
+                        <from>2013-01-29T09:00:00+01:00</from>
+                        <to>2013-09-01T00:00:00+02:00</to>
+                        <prices>
+                            <price currency='DKK'>
+                                <value>4200</value>
+                                <comment>Udsalgspris</comment>
+                            </price>
+                            <price currency='EUR'>
+                                <value>600</value>
+                            </price>
+                        </prices>
+                    </sale>
+                    <inventory>10</inventory>
+                    <separateTickets>true</separateTickets>
+                    <experienceType>4</experienceType>
+                    <vatFree>false</vatFree>
+                    <coords>
+                        <latitude>57.024961</latitude>
+                        <longitude>9.940118</longitude>
+                    </coords>
+                    <owner id="234">
+                        <name>Kim Jersin</name>
+                    </owner>
+                </product>
+            </products>
+
++ Request Subscription product creation - XML example (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <products>
+                <product id="4223">
+                    <title>
+                        <values>
+                            <value lang="da">Abonnements produkt</value>
+                            <value lang="en">Subscription product</value>
+                        </values>
+                    </title>
+                    <intro>
+                        <values>
+                            <value lang="da">Intro tekst ...</value>
+                            <value lang="en">Short description ...</value>
+                        </values>
+                    </intro>
+                    <description>
+                        <values>
+                            <value lang="da">Dette er et abonnement-produkt</value>
+                            <value lang="en">This is a subscription product</value>
+                        </values>
+                    </description>
+                    <type>subscription</type>
+                    <sale>
+                        <from>2014-01-01T09:00:00+01:00</from>
+                        <to>2014-03-01T00:00:00+02:00</to>
+                        <prices>
+                            <price currency='DKK'>
+                                <value>4200</value>
+                                <comment>Udsalgspris</comment>
+                            </price>
+                            <price currency='EUR'>
+                                <value>600</value>
+                            </price>
+                        </prices>
+                    </sale>
+                    <separateTickets>true</separateTickets>
+                    <experienceType>4</experienceType>
+                    <vatFree>false</vatFree>
+                    <coords>
+                        <latitude>57.024961</latitude>
+                        <longitude>9.940118</longitude>
+                    </coords>
+                    <owner id="5634">
+                        <name>sny</name>
+                    </owner>
+                </product>
+            </products>
+
++ Request Booking product creation - XML example (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <products>
+                <product id="428">
+                    <title>
+                        <values>
+                            <value lang="da">Entre</value>
+                            <value lang="en">Single day</value>
+                        </values>
+                    </title>
+                    <intro>
+                        <values>
+                            <value lang="da">Entre ...</value>
+                            <value lang="en">Single day ...</value>
+                        </values>
+                    </intro>
+                    <description>
+                        <values>
+                            <value lang="da">Entre billet gyldig for en enkelt dag</value>
+                            <value lang="en">Ticket valid for a single day</value>
+                        </values>
+                    </description>
+                    <type>booking</type>
+                    <calendar interval_unit="day" interval_length="2" sales_deadline="0" sales_deadline_unit="day">
+                        <entry active="true">
+                            <quantity>40</quantity>
+                            <from>2013-08-29</from>
+                            <to>2013-12-01</to>
+                            <comment>Imported sale</comment>
+                        </entry>
+                    </calendar>
+                    <sale>
+                        <from>2013-01-29T09:00:00+01:00</from>
+                        <to>2013-11-17T00:00:00+02:00</to>
+                        <prices>
+                            <price currency='DKK'>
+                                <value>4300</value>
+                                <comment>Udsalgspris</comment>
+                            </price>
+                            <price currency='EUR'>
+                                <value>600</value>
+                            </price>
+                        </prices>
+                    </sale>
+                    <separateTickets>true</separateTickets>
+                    <experienceType>4</experienceType>
+                    <vatFree>false</vatFree>
+                    <coords>
+                        <latitude>57.024961</latitude>
+                        <longitude>9.940118</longitude>
+                    </coords>
+                    <owner id="234">
+                        <name>Kim Jersin</name>
+                    </owner>
+                </product>
+            </products>
+
++ Request Accomodation product - XML example (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <products>
+                <product id="428">
+                    <title>
+                        <values>
+                            <value lang="da">Entre</value>
+                            <value lang="en">Single day</value>
+                        </values>
+                    </title>
+                    <intro>
+                        <values>
+                            <value lang="da">Entre ...</value>
+                            <value lang="en">Single day ...</value>
+                        </values>
+                    </intro>
+                    <description>
+                        <values>
+                            <value lang="da">Entre billet gyldig for en enkelt dag</value>
+                            <value lang="en">Ticket valid for a single day</value>
+                        </values>
+                    </description>
+                    <type>accommodation</type>
+                    <calendar interval_length="1" interval_unit="day" sales_deadline="0" sales_deadline_unit="day">
+                        <entry active="true">
+                            <quantity>40</quantity>
+                            <from>2013-08-29</from>
+                            <to>2013-12-01</to>
+                            <comment>Imported sale</comment>
+                        </entry>
+                    </calendar>
+                    <sale interval_length="2" interval_unit="week" week_days="6,7">
+                        <from>2013-01-29T09:00:00+01:00</from>
+                        <to>2013-11-17T00:00:00+02:00</to>
+                        <prices>
+                            <price currency='DKK'>
+                                <value>4300</value>
+                                <comment>Udsalgspris</comment>
+                            </price>
+                            <price currency='EUR'>
+                                <value>600</value>
+                            </price>
+                        </prices>
+                    </sale>
+                    <usage interval_length="2" interval_unit="week" week_days="6,7">
+                        <from>2013-03-29T09:00:00+01:00</from>
+                        <to>2013-07-17T00:00:00+02:00</to>
+                        <prices>
+                            <price currency='DKK'>
+                                <value>1000</value>
+                            </price>
+                            <price currency='EUR'>
+                                <value>100</value>
+                            </price>
+                        </prices>
+                    </usage>
+                    <separateTickets>true</separateTickets>
+                    <experienceType>4</experienceType>
+                    <vatFree>false</vatFree>
+                    <coords>
+                        <latitude>57.024961</latitude>
+                        <longitude>9.940118</longitude>
+                    </coords>
+                    <owner id="234">
+                        <name>Kim Jersin</name>
+                    </owner>
+                </product>
+            </products>
+
++ Response 202
+
+    Accepted - The request has been accepted for processing, but the processing has not been completed. GET the same URI to get the result of the import.
+
+    + Body
+
++ Response 405
+
+    Method not allowed - A document has already been PUT to this transaction.
+
+    + Body
+
+### Get Status [GET]
+
+The GET method will show the current status of the import.
+
++ Parameters
+    + transaction (number, required) - Transaction ID.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 202
+
+    Accepted - The request is pending or processing.
+
+    + Body
+
++ Response 200
+
+    OK - The request was handled with success.
+
+    + Body
+
++ Response 204
+
+    No Content - Nothing was uploaded.
+
+    + Body
+
++ Response 206
+
+    Partial Content - Done with errors
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <errors xmlns="https://gotour.dk/pcm/provider/order-export">
+                <error>
+                    <sequence>1</sequence>
+                    <id>18</id>
+                    <code>1048</code>
+                    <message>Column cannot be null</message>
+                </error>
+            </errors>
+
+## Upload product image [/provider/product-image]
+
+The product image upload endpoint can be used in two ways
++ Upload an image resource directly on an existing product
++ Upload an image resource on a transaction. This will expose the image to the transaction ID when products are uploaded
+
+### Upload file [POST]
+
+Uploads either a single file or multiple files. The filename should be image (pass multiple image as an array).
+
++ Parameters
+    + productLabel (string, required) - Product label. 
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+    + transactionId (number, optional) - Transaction ID.
+
++ Request (multipart/form-data; boundary=---BOUNDARY)
+
+    + Body
+
+            -----BOUNDARY
+            Content-Disposition: form-data; name="image[file]"; filename="image.jpg"
+            Content-Type: image/jpeg
+
+            [raw file content]
+            -----BOUNDARY
+
++ Response 200
+
+    OK
+
+    + Body
+
++ Response 400
+
+    Invalid parameters given
+
+    + Body
+            <?xml version="1.0" encoding="UTF-8"?>
+            <error application="Product Channel Manager (PCM)">
+                <message>Application error</message>
+                <exception>
+                    <message>productLabel is required</message>
+                    <code>502</code>
+                </exception>
+            </error>
+## Experience types [/provider/experience-type?format={format}]
+### Get Supported experience types [GET]
+
+Retrieve a list of supported experience types.
+
++ Parameters
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8" ?>
+            <experience_types xmlns="https://gotour.dk/pcm/provider/experience-type">
+                <type id="1">Aktivitet</type>
+                <type id="2">Overnatning</type>
+                <type id="3">Transport</type>
+                <type id="4">Kombination af ovenstående</type>
+            </experience_types>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id":1,
+                    "title":"Aktivitet"
+                },
+                {
+                    "id":2,
+                    "title":"Overnatning"
+                },
+                {
+                    "id":3,
+                    "title":"Transport"
+                },
+                {
+                    "id":4,
+                    "title":"Kombination af ovenstående"
+                }
+            ]
+
+# Group Member Import
+
+Members include person, product, and ticket information. Since members are registered to a product, this product needs to be imported before the member is imported (if it does not exist  in Alletiders API already).  Furthermore in order to be able to scan tickets the product type needs to be subscription.
+The member import currently supports two content types: XML and CSV.
+
+The member import process contains 2 steps:
++ Create a transaction for the import
++ Send member data
+
+## Create Transaction [/provider/member]
+### Create Transaction [POST]
+
+Create a new member import transaction. The resulting transaction can then be used to import members.
+
++ Response 201
+
+    + Headers
+
+            Location: /provider/member/{transaction}
+
+## Import Members [/provider/member/{transaction}]
+### Import Members [PUT]
+
+Imports the members to Alletiders API. If a member already exists data will be updated. Expected file encoding is UTF-8 and content type must be set in the header.
+
+Parameters that you can specify in the request body:
+<pre>
+* required
+</pre>
+<table>
+    <tr>
+        <td>address*</td>
+        <td>
+            address includes following properties:<br>
+            <ul>
+                <li>name  [type: varchar | maxlength: 255]</li>
+                <li>address  [type: varchar | maxlength: 255]</li>
+                <li>zipCode  [type: varchar | maxlength: 5]</li>
+                <li>city  [type: varchar | maxlength: 64]</li>
+                <li>country  [type: varchar | maxlength: 25]</li>
+                <li>phone  [type: varchar | maxlength: 16]</li>
+                <li>email  [type: varchar | maxlength: 255]</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>ticketIdentity*</td>
+        <td>
+            ticket identity consists of the following properties:<br>
+            ticket code:<br>
+                <ul><li>code*  [type: varchar |maxlength: 255]</li></ul>
+            type of the ticket code:<br>
+                <ul><li>type [type: varchar | maxlength:50] See suggested values</li></ul>
+            the validation period:<br>
+            <ul>
+                <li>valid
+                    <ul>
+                        <li>from* [type: datetime | format: YYYY-MM-DDThh:mm:ssTZD (W3C)]</li>
+                        <li>to* [type: datetime | format: YYYY-MM-DDThh:mm:ssTZD (W3C)]</li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+    <tr>
+    <tr>
+        <td>product*</td>
+        <td>
+            product consists of the product id that the member has subscribed to:<br>
+            <ul><li>label*  [type: int | maxlength: 10]</li></ul>
+
+            NOTE: the product needs to be of type subscription.
+        </td>
+    </tr>
+</table>
+
+**See example requests**
+
+For more information see the [online documetation](https://docs.alletidersapi.dk/api/).
+
++ Parameters
+    + transaction (number, required) - Transaction ID.
+
++ Request (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <orders>
+                <order>
+                    <members>
+                        <member>
+                            <address>
+                                <name>David Davidoff Davidsen</name>
+                                <address>Gadenavngade 10</address>
+                                <zipCode>8000</zipCode>
+                                <city>Aarhus C</city>
+                                <country>Danmark</country>
+                                <phone>86123456</phone>
+                                <email>david@example.com</email>
+                            </address>
+                            <ticketIdentity>
+                                <code>1234561234568</code>
+                                <type>barcode</type>
+                                <valid>
+                                    <from>2013-01-30T09:00:00+01:00</from>
+                                    <to>2013-05-25T00:00:00+00:00</to>
+                                </valid>
+                            </ticketIdentity>
+                            <product>
+                                <label>423</label>
+                            </product>
+                        </member>
+                        <member>
+                            <address>
+                                <name>William W. Willemoes</name>
+                                <address>Gadenavngade 103B</address>
+                                <zipCode>8240</zipCode>
+                                <city>Risskov</city>
+                                <country>Danmark</country>
+                                <phone>86654321</phone>
+                                <email>will@example.com</email>
+                            </address>
+                            <ticketIdentity>
+                                <code>1231231231233</code>
+                                <type>barcode</type>
+                            </ticketIdentity>
+                            <product>
+                                <label>423</label>
+                            </product>
+                        </member>
+                    </members>
+                </order>
+            </orders>
+
++ Request (text/csv)
+
+    + Body
+            label;type;code;validFrom;validTo;name;address;zip_code;city;country;phone;email
+            1443;EAN13;1234561234568;2014-01-25T09:00:00+01:00;2014-05-25T00:00:00+00:00;“David Davidoff Davidsen“;“Gadenavngade 10“;8000;“Aarhus C“;“Danmark“;“86123456“;“david@example.com“
+            5237;EAN13;1231231231233;2014-05-25T09:00:00+01:00;2014-05-25T00:00:00+00:00;“William W. Willemoes“;“Gadenavngade 103B“;8240;“Risskov“;“Danmark“;“86654321“;“will@example.com“
+
+
++ Response 202
+
+    + Headers
+
+            Location: /provider/member/{transaction}
+
+### Get status [GET]
+
+Show the current status of the import.
+
+Warnings
++ 995: This warning will be shown when updating an already imported member with a different product label. The rest will be updated.
++ 1062: The code exists for another provider. If this happens the import will be interrupted and nothing will be imported. Please contact GoTour if this error occurs.
++ 1452: The product-id (product label) does not exist. Please check if `<product><label>xxx</label></product>` is specified correctly and that the product exists in Alletiders API.
+
++ Response 202
+
+    Accepted - Pending or processing
+
+    + Body
+
++ Response 200
+
+    OK - Done with success
+
+    + Body
+
++ Response 204
+
+    No Content - Nothing was uploaded
+
+    + Body
+
++ Response 206
+
+    Partial Content - Done with errors
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <errors xmlns="https://gotour.dk/pcm/provider/order-export">
+                <error>
+                    <sequence>1</sequence>
+                    <id>18</id>
+                    <code>1062</code>
+                    <message>The member code already exists on a different provider or with different barcode type. Nothing was imported. Please contact support for detailed information</message>
+                </error>
+            </errors>
+
+# Group Pull Orders - Export
+
+This method enables the providers to pull a list of orders ready for processing using the Alletiders API. It is then up to the provider to complete the order  process by providing the customer the confirmation mail and the ticket.
+
+![Pull Order](https://docs.alletidersapi.dk/images/apiary/order_anytime.png)
+
+## Order Export [/provider/order-export/?format={format}]
+### List transactions [GET]
+
+Get list of order export transactions for the "active" provider.
+
++ Parameters
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <transactions>
+              <transaction id="2">
+                <location>/provider/order-export/2?format=xml</location>
+                <insertTime>2015-04-30T10:56:18+00:00</insertTime>
+                <modified>2015-04-30T10:56:32+00:00</modified>
+                <name/>
+                <count>107</count>
+                <user id="292">
+                  <email>user@example.com</email>
+                  <name>John Smith</name>
+                </user>
+                <iDate>2015-04-30</iDate>
+                <iTime>10:56:18</iTime>
+              </transaction>
+              <transaction id="1">
+                <location>/provider/order-export/1?format=xml</location>
+                <insertTime>2015-04-30T10:55:54+00:00</insertTime>
+                <name/>
+                <user id="292">
+                  <email>user@example.com</email>
+                  <name>John Smith</name>
+                </user>
+                <iDate>2015-04-30</iDate>
+                <iTime>10:55:54</iTime>
+              </transaction>
+            </transactions>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id":2,
+                    "location":"\/provider\/order-export\/2?format=json",
+                    "insertTime":"2015-04-30T10:56:18+00:00",
+                    "modified":"2015-04-30T10:56:32+00:00",
+                    "comment":null,
+                    "name":{},
+                    "count":107,
+                    "user":
+                    {
+                        "id":292,
+                        "email":"user@example.com",
+                        "name":"John Smith"
+                    },
+                    "iDate":"2015-04-30",
+                    "iTime":"10:56:18"
+                },
+                {
+                    "id":1,
+                    "location":"\/provider\/order-export\/1?format=json",
+                    "insertTime":"2015-04-30T10:55:54+00:00",
+                    "modified":null,
+                    "comment":null,
+                    "name":{},
+                    "count":null,
+                    "user":
+                    {
+                        "id":292,
+                        "email":"user@example.com",
+                        "name":"John Smith"
+                    },
+                    "iDate":"2015-04-30",
+                    "iTime":"10:55:54"
+                }
+            ]
+
+### Create Transaction for Order Export [POST]
+
+Create a new transaction for order export.
+
++ Response 200
+
+    OK - Order transaction created
+
+    + Body
+
+    + Headers
+
+            Location: /provider/order-export/{transaction}
+
++ Response 204
+
+    No Content - No orders on the transaction or no new orders. Try again later.
+
+    + Body
+
+## Order Export [/provider/order-export/{transaction}?format={format}]
+### Get Completed Orders [GET]
+
+Get all completed orders for given transaction id. If it is a new transaction, All new orders are marked as exported (with the transaction) and returned.
+If it is an already used transaction, Orders already marked (exported or tried exported) would be returned
+
+NOTE: Only if an order is made using a sales channel, will the channel id be specified
+
++ Parameters
+    + transaction (number, required) - Transaction ID.
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <orders xmlns="https://gotour.dk/pcm/provider/order-export">
+                <order id="908">
+                    <insertTime>2014-09-05T10:17:22+00:00</insertTime>
+                    <modified>2014-09-05T10:42:02+00:00</modified>
+                    <address id="267">
+                        <name>Lone nielsen</name>
+                        <address>Strandvejen 42</address>
+                        <zipCode>3399</zipCode>
+                        <city>Hundested</city>
+                        <country>Danmark</country>
+                        <email>Spwm@hotmail.com</email>
+                        <newsletter>0</newsletter>
+                        <newsletterPartners>0</newsletterPartners>
+                    </address>
+                    <channelId>1</channelId>
+                    <currency>DKK</currency>
+                    <orderLines>
+                        <orderLine id="1220">
+                            <quantity>1</quantity>
+                            <prices>
+                                <price id="undefined">
+                                    <value>49500</value>
+                                </price>
+                            </prices>
+                            <product id="749" ver="7">
+                                <title>80-Års jubilæumstur fra Hundested-Grenaa</title>
+                            </product>
+                            <ticketIdentities>
+                                <ticketIdentity id="636">
+                                    <type>barcode</type>
+                                    <code>7610039911562</code>
+                                    <scanLog/>
+                                    <barcodeType>EAN13</barcodeType>
+                                </ticketIdentity>
+                            </ticketIdentities>
+                        </orderLine>
+                    </orderLines>
+                </order>
+                <order id="916">
+                    <insertTime>2014-09-05T13:58:30+00:00</insertTime>
+                    <modified>2014-09-05T14:01:40+00:00</modified>
+                    <address id="268">
+                        <name>Gotschalk Rejser</name>
+                        <address>Thorsgade 57</address>
+                        <zipCode>8410</zipCode>
+                        <city>RÃ¸nde</city>
+                        <phone>50226622</phone>
+                        <email>gotschalk@mail.dk</email>
+                        <newsletter>0</newsletter>
+                        <newsletterPartners>0</newsletterPartners>
+                    </address>
+                    <channelId>1</channelId>
+                    <currency>DKK</currency>
+                    <orderLines>
+                        <orderLine id="1229">
+                            <quantity>4</quantity>
+                            <prices>
+                                <price id="undefined">
+                                    <value>198000</value>
+                                </price>
+                            </prices>
+                            <product id="739" ver="6">
+                                <title>80-Års jubilæumstur fra Grenaa til Hundested</title>
+                            </product>
+                            <ticketIdentities>
+                                <ticketIdentity id="637">
+                                    <type>barcode</type>
+                                    <code>6770594316033</code>
+                                    <scanLog/>
+                                    <barcodeType>EAN13</barcodeType>
+                                </ticketIdentity>
+                            </ticketIdentities>
+                        </orderLine>
+                    </orderLines>
+                </order>
+            </orders>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "908":
+                {
+                    "id":908,
+                    "insertTime":"2014-09-05T10:17:22+00:00",
+                    "modified":"2014-09-05T10:42:02+00:00",
+                    "address":
+                    {
+                        "id":267,
+                        "name":"Lone nielsen",
+                        "address":"Strandvejen 42",
+                        "zipCode":"3399",
+                        "city":"Hundested",
+                        "country":"Danmark",
+                        "phone":null,
+                        "email":"Spwm@hotmail.com",
+                        "newsletter":0,
+                        "newsletterPartners":0
+                    },
+                    "channelId":1,
+                    "externalOrderId":null,
+                    "currency":"DKK",
+                    "orderLines":
+                    {
+                        "1220":
+                        {
+                            "id":1220,
+                            "quantity":1,
+                            "prices":
+                            [
+                                {
+                                    "id":"undefined",
+                                    "value":49500
+                                }
+                            ],
+                            "product":
+                            {
+                                "id":749,
+                                "ver":7,
+                                "label":null,
+                                "title":"80-\u00e5rs jubil\u00e6umstur fra Hundested-Gren\u00e5"
+                            },
+                            "ticketIdentities":
+                            [
+                                {
+                                    "id":636,
+                                    "type":"barcode",
+                                    "code":"7610039911562",
+                                    "scanLog":[],
+                                    "barcodeType":"EAN13"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "916":
+                {
+                    "id":916,
+                    "insertTime":"2014-09-05T13:58:30+00:00",
+                    "modified":"2014-09-05T14:01:40+00:00",
+                    "address":
+                    {
+                        "id":268,
+                        "name":"Gotschalk Rejser",
+                        "address":"Thorsgade 57",
+                        "zipCode":"8410",
+                        "city":"R\u00f8nde",
+                        "country":null,
+                        "phone":"50226622",
+                        "email":"gotschalk@mail.dk",
+                        "newsletter":0,
+                        "newsletterPartners":0
+                    },
+                    "channelId":1,
+                    "externalOrderId":null,
+                    "currency":"DKK",
+                    "orderLines":
+                    {
+                        "1229":
+                        {
+                            "id":1229,
+                            "quantity":4,
+                            "prices":
+                            [
+                                {
+                                    "id":"undefined",
+                                    "value":198000
+                                }
+                            ],
+                            "product":
+                            {
+                                "id":739,
+                                "ver":6,
+                                "label":null,
+                                "title":"80-\u00e5rs Jubil\u00e6umstur fra Gren\u00e5 til Hundested"
+                            },
+                            "ticketIdentities":
+                            [
+                                {
+                                    "id":637,
+                                    "type":"barcode",
+                                    "code":"6770594316033",
+                                    "scanLog":[],
+                                    "barcodeType":"EAN13"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+
+# Group Push Orders
+
+With push orders, the orders are sent in real time to the provider. The provider then needs to send the barcodes back to Alletiders API, which will then create the ticket and complete the order. This requires the provider to implement CRUD functionality for an order and provide a RESTful service for the Alletiders API to fetch the barcodes.
+
+Depending on the sales channel, Alletiders API can be responsible for sending the order confirmation email with the tickets. In order to be able to create them successfully, a barcode must be of a support type. Please refer to the 'Barcode types' section for a list of supported types.
+
+Alternatively, if the sales channel chose to send order confirmations themselves, then the supported barcode types will vary. Please refer to the 'Barcode types' section to decide which barcode name to use.
+
+![Push Order](https://docs.alletidersapi.dk/images/apiary/order_realtime.png)
+
+The following section describes examples of requests to a given provider. The endpoint is defined for each provider in the administration panel.
+
+The API will keep calling the endpoints until a valid response code is returned. If the provider is down the call will thus be scheduled to execution within near future.
+
+## Create order - step 1/2 [/order/]
+### Create new order with order lines. [POST]
+
+The first step in push order consists of the Alletiders API making a POST request to the provider with the order data.
+
+productLabel on the line tag is the product id specified when importing product, it will not be included if product was created in admin interface.
+
++ Request (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <order id="1">
+                <created>2013-01-30T09:00:00+01:00</created>
+                <modified>2013-01-30T09:00:00+01:00</modified>
+                <address id="3">
+                    <name>gd</name>
+                    <address>gd</address>
+                    <zipCode>gds</zipCode>
+                    <city>gd</city>
+                    <country></country>
+                    <phone></phone>
+                    <email>dtr@gotour.dk</email>
+                </address>
+                <currency>DKK</currency>
+                <channelId>5</channelId>
+                <lines>
+                    <line id="1">
+                        <productDataId>6</productDataId>
+                        <productDataVer>1</productDataVer>
+                        <productLabel>5147</productLabel>
+                        <price>19900</price>
+                        <unitPrice>9950</unitPrice>
+                        <quantity>2</quantity>
+                        <providerId>1</providerId>
+                        <!-- Only applicable to booking and accommodation products -->
+                        <start>2013-02-10T09:00:00+01:00</start>
+                        <end>2013-02-11T09:00:00+01:00</end>
+                    </line>
+                </lines>
+            </order>
+
++ Response 201
+
+    + Header
+
+            Location: /order/{orderId}
+
+## Create order - step 2/2 [/order/{orderId}]
+### Get barcodes from provider and execute the order. [GET]
+
+The second step consists of the Alletiders API making a GET request to the provider with the order id. Alletiders API expects the provider to return barcodes for the given order id. The orderId used here is the one extracted from location header from previously made POST request.
+
++ Response 200
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <order>
+                <lines>
+                    <line id="0">
+                        <barcodes>
+                            <barcode type="Code39">Wikipedia</barcode>
+                        </barcodes>
+                    </line>
+                    <line id="1">
+                        <barcodes>
+                            <barcode type="EAN13">899067654321</barcode>
+                            <barcode type="Code39">102467654321</barcode>
+                            <barcode type="Code39">204867654321</barcode>
+                        </barcodes>
+                    </line>
+                </lines>
+            </order>
+
+### Delete order [DELETE]
+
+Deletes an existing order. The orderId used here is the one extracted from location header from previously made POST request.
+
+*NOTE:* If the GET was invoked for this order (ticket identities were created), it is then the responsibility of the provider to do any necessary cleaning in their systems.
+
++ Response 204
+
+# Group Language and Currency
+
+## Language [/provider/language]
+### Get Supported Languages [GET]
+
+Retrieve a list of supported languages.
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <languages xmlns="https://gotour.dk/pcm/channel/language">
+                <language id="1" code="da" locale="da_DK">danish</language>
+                <language id="2" code="en" locale="en_GB">english</language>
+                <language id="3" code="de" locale="de_DE">german</language>
+                <language id="4" code="no" locale="nb_NO">norwegian</language>
+                <language id="5" code="sv" locale="sw_SE">swedish</language>
+                <language id="6" code="nl" locale="nl_NL">dutch</language>
+            </languages>
+
++ Response 200 (application/json)
+
+    + Body
+            [
+                {
+                    "id":1,
+                    "label":"danish",
+                    "locale":"da_DK",
+                    "code":"da"
+                },
+                {
+                    "id":2,
+                    "label":"english",
+                    "locale":"en_GB",
+                    "code":"en"
+                },
+                {
+                    "id":3,
+                    "label":"german",
+                    "locale":"de_DE",
+                    "code":"de"
+                },
+                {
+                    "id":4,
+                    "label":"norwegian",
+                    "locale":"nb_NO",
+                    "code":"no"
+                },
+                {
+                    "id":5,
+                    "label":"swedish",
+                    "locale":"sw_SE",
+                    "code":"sv"
+                },
+                {
+                    "id":6,
+                    "label":"dutch",
+                    "locale":"nl_NL",
+                    "code":"nl"
+                }
+            ]
+
+## Supported Currencies [/provider/currency?format={format}]
+### Get Supported Currencies [GET]
+
+Retrieve a list of supported currencies.
+
++ Parameters
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <currencies xmlns="https://gotour.dk/pcm/provider/currency">
+                <currency id="1">DKK</currency>
+                <currency id="2">EUR</currency>
+                <currency id="3">USD</currency>
+                <currency id="4">SEK</currency>
+                <currency id="5">NOK</currency>
+            </currencies>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id":1,
+                    "currency":"DKK"
+                },
+                {
+                    "id":2,
+                    "currency":"EUR"
+                },
+                {
+                    "id":3,
+                    "currency":"USD"
+                },
+                {
+                    "id":4,
+                    "currency":"SEK"
+                },
+                {
+                    "id":5,
+                    "currency":"NOK"
+                }
+            ]
+
+# Data Structures
+
+## DateTime (string)
+
+    The date and time in the format (Y-m-d\TH:i:sP)
+
+## Date (string)
+
+    The date in the format (Y-m-d)
+
+

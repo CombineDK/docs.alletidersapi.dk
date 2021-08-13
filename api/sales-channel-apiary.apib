@@ -1,0 +1,2378 @@
+FORMAT: 1A
+HOST: https://alletidersapi.dk
+
+# Alletiders API
+
+Welcome to the Sales Channel interface documentation of the **Alletiders API**.
+
+## Useful Links
+
++ [Documentation](https://docs.alletidersapi.dk/)
++ [System Overview](https://docs.alletidersapi.dk/overview/)
++ [Provider Documentation](https://docs.alletidersapi.dk/api/provider-apiary.html)
+
+## Document purpose
+
+This document describes the API between sales channels and Alletiders API.
+
+## RESTful service
+
+Alletiders API implements CRUD functionality on a series of resources allowing search of products, shopping cart and payment interactions. Enabling POS systems to display and make sales of products from various product providers.
+
+## Security, authorization and identity
+
+The sales channel client is expected to use https and basic authentication.
+
+## HTTP session
+
+Order and payment interactions require session support from the channel client.
+
+## Input and Output formats
+
+Data is available in JSON or XML formats.
+
+All input parameters have to be passed as raw JSON or url encoded form - either in query string or POST/PUT data.
+
+Presented examples contains additional white space for better readability, this is not the case for actual responses.
+
+## Currency format
+
+All prices in the responses are in cents, (currency * 100) to avoid rounding errors. Divide received numbers by 100 and format it before showing it to the user.
+
+All input values that are to be used as currency have to be multiplied by 100.
+
+## Error handling
+
+If an exception occurs in any request, a special content is returned. This content will be either HTML, JSON, or XML and will depend on the current format. The content will include the actual error message and all exception information, including stack trace serialized to appropriate format. The stack trace and the error message as a whole is very useful for error investigation, please keep it, if you need to communicate with GoTour about possible errors. The sales channel should be looking at the \<message\>.
+
+For example:
+
+XML
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<error application="Product Channel Manager (PCM)">
+   <message>The requested page was not found</message>
+   <exception>
+      <message>Invalid controller specified (membuy)</message>
+      <code>0</code>
+      <stacktrace>
+        ...
+      </stacktrace>
+   </exception>
+</error>
+```
+
+JSON
+```json
+{
+   "application":"Product Channel Manager (PCM)",
+   "message":"The requested page was not found",
+   "exception":{
+      "message":"Invalid controller specified (membuy)",
+      "code":0,
+      "stacktrace":[ … ]
+   }
+}
+```
+
+
+# Group Orders
+
+## Orders [/channel/order]
+### Create a New Order [POST]
+
+Create a new order. All attributes are optional in the initial call. Lower the amount of API requests by specifying parameters initially.
+
+*NOTE:* Sets a session cookie that is later used to validate the order. Remember to pass the session id (PHPSESSID) in future requests when dealing with this order.
+
++ Parameters
+
+    + reserve (boolean, optional) - Indicates that after this update, the order must be reserved. Only applicable if order price = 0
+    + complete (boolean, optional) - Indicates that the order was placed externally and is not using the internal payment processing.
+    + cancel (boolean, optional) - Indicates that this order has to be cancelled.
+        If 205 is returned, you can be sure that order will be cancelled.
+        An error may occur only if ticket identities are received before this request is processed or if this order was not completed.
+    + reason (string, optional) - Message with why the order is cancelled. Only used with the cancel parameter.
+    + address (array, required)
+        + name (string, required)
+        + email (string, required)
+        + phone (number, optional)
+        + address (string, required)
+        + city (string, required)
+        + zipCode (number, required)
+        + country (string, optional)
+            + Default: Denmark
+    + products (array, optional) - A collection of arrays containing product data
+        + Product (array) - Single dimensional array with the following keys
+            + id (number) - product identifier
+            + qty (number) - quantity, CANNOT be changed later!
+            + allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the [ProductAllotment](https://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments) resource.
+    + channel (string, required) - The name of the channel.
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 201
+
+    + Header
+
+            Location: /channel/order/{orderId}
+
+## Order [/channel/order/{orderId}]
+### Update Order Contents [PUT]
+
+Updates an order, setting currency, address, orderlines etc. It is only possible to perform this request after "Create a New Order" has been called and until the next "Create a New order" call.
+
+*NOTE:* that all orderlines are deleted when currency is changed!
+
+*NOTE:* The passed session id cookie is used to validate the order.
+
++ Parameters
+    + orderId (number, optional) - The order ID. If not specified it will be retrieved from the session
+    + reserve (boolean, optional) - Indicates that after this update, the order must be reserved. Only applicable if order price = 0
+    + complete (boolean, optional) - Indicates that order was placed externally and it is not using the internal payment processing.
+    + cancel (boolean, optional) - Indicates that this order has to be cancelled.
+        If 205 is returned, you can be sure that order will be cancelled.
+        An error may occur only if ticket identities are received before this request is processed or if this order was not completed.
+    + reason (string, optional) - Message with why the order is cancelled. Only used with the cancel parameter.
+    + address (array, required)
+        + name (string, required)
+        + email (string, required)
+        + phone (number, optional)
+        + address (string, required)
+        + city (string, required)
+        + zipCode (number, required)
+        + country (string, optional)
+            + Default: Denmark
+    + products (array, optional) - A collection of arrays containing product data
+        + Product (array) - Single dimensional array with the following keys
+            + id (number) - product identifier
+            + qty (number) - quantity, CANNOT be changed later!
+            + allotments (array) - collection of key/value pairs. Pair key is allotment id and value has to be set to true. Allotments can be retrieved via the [ProductAllotment](https://docs.alletidersapi.dk/api/sales-channel-apiary.html#reference/products/product-allotment/get-product-allotments) resource.
+    + channel (string, required) - The name of the channel.
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + discountCode: ((string, optional)) - A discount code that can give discounts on order products
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Request
+
+    + Headers
+
+        Cookie: PHPSESSID=v2uef43ihovm65k3vumsgdd6n4
+
++ Response 205
+
+    Reset Content - The order will be cancelled
+
+    + Body
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <order xmlns="https://gotour.dk/pcm/channel/order" id="147">
+                <insertTime>2013-05-16T10:21:47+02:00</insertTime>
+                <modified>2013-05-16T10:34:58+02:00</modified>
+                <price>6500</price>
+                <currency>DKK</currency>
+                <paymentType>full</paymentType>
+                <isCompleted>1</isCompleted>
+                <isCancelled>0</isCancelled>
+                <isReady>1</isReady>
+                <receipt></receipt>
+                <cost>1000</cost>
+                <address id="53">
+                    <name>dtr</name>
+                    <address>TestStreet 5</address>
+                    <zipCode>0000?</zipCode>
+                    <city>Test</city>
+                    <email>dtr@gotour.dk</email>
+                </address>
+                <orderLines>
+                    <orderLine id="764" productId="10">
+                        <title>1 dags leje af voksencykel (herre)</title>
+                        <quantity>1</quantity>
+                        <price>5000</price>  <!-- quantity*unitPrice (including VAT) -->
+                        <cost>5000</cost>
+                        <unitPrice>5000</unitPrice>
+                        <coords>
+                            <latitude>57.024961</latitude>
+                            <longitude>9.940118</longitude>
+                        </coords>
+                        <comment></comment>
+                        <ticketIdentities>
+                            <ticketIdentity id="39194">
+                                <type>barcode</type>
+                                <code>1564646579879</code>
+                                <maxUsage>1</maxUsage>
+                                <barcodeType>EAN13</barcodeType>
+                            </ticketIdentity>
+                            <ticketIdentity id="39195">
+                                <type>barcode</type>
+                                <code>4897984612311</code>
+                                <maxUsage>1</maxUsage>
+                                <barcodeType>EAN13</barcodeType>
+                            </ticketIdentity>
+                        </ticketIdentities>
+                        <!-- Only applicable to booking products -->
+                        <start>2014-07-19T00:00:00+02:00</start>
+                        <end>2014-07-20T00:00:00+02:00</end>
+                    </orderLine>
+                </orderLines>
+                <orderFees>
+                    <orderFee id="1" ver="1" recipientId="1">
+                        <msg>Bookinggebyr</msg>
+                        <value>1500</value>
+                        <recipientName>VisitNordsjaelland</recipientName>
+                    </orderFee>
+                </orderFees>
+            </order>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id":147,
+                "insertTime":"2013-05-16T10:21:47+02:00",
+                "modified":"2013-05-16T10:34:58+02:00",
+                "price":6500,
+                "isCompleted":true,
+                "isReady":true,
+                "isCancelled":false,
+                "receipt":null,
+                "currency":"DKK",
+                "paymentType":"full",
+                "address":{
+                    "id":53,
+                    "name":"dtr",
+                    "address":"TestStreet 5",
+                    "zipCode":"0000?",
+                    "city":"Test",
+                    "country":null,
+                    "phone":null,
+                    "email":"dtr@gotour.dk"
+               },
+               "orderLines":[
+                    {
+                        "id":764,
+                        "title":"1 dags leje af voksencykel (herre)",
+                        "quantity":1,
+                        "price":5000, // quantity*unitPrice (including VAT)
+                        "cost":1000,
+                        "unitPrice":5000,
+                        "productId":10,
+                        "orderLinePackageId":null,
+                        "orderLines":null,
+                        "coords":{"latitude":57.024961,"longitude":9.940118},
+                        "comment:" "",
+                        "ticketIdentities":[
+                            {
+                                "id":39194,
+                                "type":"barcode",
+                                "code":"1564646579879",
+                                "message":null,
+                                "userId":null,
+                                "validDatePeriodId":null,
+                                "maxUsage":1,
+                                "barcodeType":"EAN13",
+                                "orderLineId":39218
+                            },
+                            {
+                                "id":39195,
+                                "type":"barcode",
+                                "code":"4897984612311",
+                                "message":null,
+                                "userId":null,
+                                "validDatePeriodId":null,
+                                "maxUsage":1,
+                                "barcodeType":"EAN13",
+                                "orderLineId":39218
+                            }
+                        ]
+                    }
+               ],
+               "orderFees":[
+                    {
+                        "id":1,
+                        "ver":1,
+                        "msg":"Bookinggebyr",
+                        "recipientId":1,
+                        "value":1500,
+                        "recipientName":"VisitNordsjaelland"
+                    }
+               ]
+            }
+
+### Get Order Details [GET]
+
+Retrieves all the information about the order, including order details, currency, order lines, order fees and the address. It is only possible to perform this request after "Create a New Order" has been called and until the next "Create a New order" call.
+
+*NOTE:* The passed session id cookie is used to validate the order.
+
+#### Response description
+
+|Field|Description|
+|---|---|
+|receipt|Hash that can be used to show order receipt to the customer. It includes orderlines, tickets, and terms and conditions. If the order is not ready yet, it will show a “splash” page that will keep refreshing. It is meant to be accessed directly by the user. Url is as follows: order-receipt/{order.receipt} (no ‘channel’ in the beginning). The same url will be included in the email confirmation(if one is sent)|
+|paymentType|Either full or fee|
+|cost|cost of the order, based on product prices in sales agreements, always in DKK|
+|isReady|Indicates whether the order is completed and ticket identities were received/generated. It is safe to poll this resource.|
+|isCancelled|Indicates if the order was cancelled|
+
++ Request
+
+    + Headers
+
+        Cookie: PHPSESSID=v2uef43ihovm65k3vumsgdd6n4
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <order xmlns="https://gotour.dk/pcm/channel/order" id="147">
+                <insertTime>2013-05-16T10:21:47+02:00</insertTime>
+                <modified>2013-05-16T10:34:58+02:00</modified>
+                <price>6500</price>
+                <currency>DKK</currency>
+                <paymentType>full</paymentType>
+                <isCompleted>1</isCompleted>
+                <isCancelled>0</isCancelled>
+                <isReady>1</isReady>
+                <receipt></receipt>
+                <cost>1000</cost>
+                <address id="53">
+                    <name>dtr</name>
+                    <address>TestStreet 5</address>
+                    <zipCode>0000?</zipCode>
+                    <city>Test</city>
+                    <email>dtr@gotour.dk</email>
+                </address>
+                <discountCode>
+                    <usage orderLineId="764">
+                        <usageId>60</usageId>
+                        <discountCodeId>14</discountCodeId>
+                        <discountedAmount>2000</discountedAmount>
+                        <completed>0</completed>
+                        <code>DC2016</code>
+                        <currencyId>1</currencyId>
+                    </usage>
+                 </discountCode>
+                <orderLines>
+                    <orderLine id="764" productId="10">
+                        <title>1 dags leje af voksencykel (herre)</title>
+                        <quantity>1</quantity>
+                        <price>5000</price>  <!-- quantity*unitPrice (including VAT) -->
+                        <cost>5000</cost>
+                        <unitPrice>5000</unitPrice>
+                        <coords>
+                            <latitude>57.024961</latitude>
+                            <longitude>9.940118</longitude>
+                        </coords>
+                        <ticketIdentities>
+                            <ticketIdentity id="39194">
+                                <type>barcode</type>
+                                <code>1564646579879</code>
+                                <maxUsage>1</maxUsage>
+                                <barcodeType>EAN13</barcodeType>
+                            </ticketIdentity>
+                            <ticketIdentity id="39195">
+                                <type>barcode</type>
+                                <code>4897984612311</code>
+                                <maxUsage>1</maxUsage>
+                                <barcodeType>EAN13</barcodeType>
+                            </ticketIdentity>
+                        </ticketIdentities>
+                        <!-- Only applicable to booking products -->
+                        <start>2014-07-19T00:00:00+02:00</start>
+                        <end>2014-07-20T00:00:00+02:00</end>
+                        <allowOrderlineComment>1</allowOrderlineComment>
+                        <commentPlaceholder>Write comment</commentPlaceholder>
+                        <comment>Comment on the orderline</comment>
+                        <orderLines><!-- Collection of sub order lines --></orderLines>
+                    </orderLine>
+                </orderLines>
+                <orderFees>
+                    <orderFee id="1" ver="1" recipientId="1">
+                        <msg>Bookinggebyr</msg>
+                        <value>1500</value>
+                        <recipientName>VisitNordsjaelland</recipientName>
+                    </orderFee>
+                </orderFees>
+            </order>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id":147,
+                "insertTime":"2013-05-16T10:21:47+02:00",
+                "modified":"2013-05-16T10:34:58+02:00",
+                "price":6500,
+                "isCompleted":true,
+                "isReady":true,
+                "isCancelled":false,
+                "receipt":null,
+                "currency":"DKK",
+                "discountCode":[
+                    {
+                    "usageId":60,
+                    "discountCodeId": 14,
+                    "orderLineId": 764,
+                    "discountedAmount": 2000,
+                    "completed": 0,
+                    "code": "DC2016",
+                    "currencyId":1
+                    }
+               ],
+                "paymentType":"full",
+                "address":{
+                    "id":53,
+                    "name":"dtr",
+                    "address":"TestStreet 5",
+                    "zipCode":"0000?",
+                    "city":"Test",
+                    "country":null,
+                    "phone":null,
+                    "email":"dtr@gotour.dk"
+               },
+               "orderLines":[
+                    {
+                        "id":764,
+                        "title":"1 dags leje af voksencykel (herre)",
+                        "quantity":1,
+                        "price":5000, // quantity*unitPrice (including VAT)
+                        "cost":1000,
+                        "unitPrice":5000,
+                        "productId":10,
+                        "orderLinePackageId":null,
+                        "orderLines":null,
+                        "coords":{"latitude":57.024961,"longitude":9.940118},
+                        "ticketIdentities":[
+                            {
+                                "id":39194,
+                                "type":"barcode",
+                                "code":"1564646579879",
+                                "message":null,
+                                "userId":null,
+                                "validDatePeriodId":null,
+                                "maxUsage":1,
+                                "barcodeType":"EAN13",
+                                "orderLineId":39218
+                            },
+                            {
+                                "id":39195,
+                                "type":"barcode",
+                                "code":"4897984612311",
+                                "message":null,
+                                "userId":null,
+                                "validDatePeriodId":null,
+                                "maxUsage":1,
+                                "barcodeType":"EAN13",
+                                "orderLineId":39218
+                            }
+                        ],
+                        "allowOrderlineComment": 1,
+                        "commentPlaceholder": "Write comment here",
+                        "comment": ""
+                    }
+               ],
+               "orderFees":[
+                    {
+                        "id":1,
+                        "ver":1,
+                        "msg":"Bookinggebyr",
+                        "recipientId":1,
+                        "value":1500,
+                        "recipientName":"VisitNordsjaelland"
+                    }
+               ]
+            }
+
+## Order Lines [/channel/order-line]
+
+### Get Order Lines [GET]
+
+Retrieves all the items in the order. The order is identified via session cookie. Data structure is the same as orderlines entry in the order.
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <orderLines xmlns="https://gotour.dk/pcm/channel/order-line">
+                <orderLine id="764" productId="10">
+                <title>1 dags leje af voksencykel (herre)</title>
+                <quantity>1</quantity>
+                <price>5000</price>
+                <cost>1000</cost>
+                <unitPrice>5000</unitPrice>
+                <coords>
+                    <latitude>57.024961</latitude>
+                    <longitude>9.940118</longitude>
+                </coords>
+                <ticketIdentities>
+                    <ticketIdentity id="39194">
+                        <type>barcode</type>
+                        <code>1564646579879</code>
+                        <maxUsage>1</maxUsage>
+                        <barcodeType>EAN13</barcodeType>
+                   </ticketIdentity>
+                   <ticketIdentity id="39195">
+                        <type>barcode</type>
+                        <code>4897984612311</code>
+                        <maxUsage>1</maxUsage>
+                        <barcodeType>EAN13</barcodeType>
+                    </ticketIdentity>
+                </ticketIdentities>
+              </orderLine>
+            </orderLines>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id":764,
+                    "title":"1 dags leje af voksencykel (herre)",
+                    "quantity":1,
+                    "price":5000,
+                    "cost":1000,
+                    "unitPrice":5000,
+                    "productId":10,
+                    "orderLinePackageId":null,
+                    "orderLines":null,
+                    "coords":{"latitude":57.024961,"longitude":9.940118},
+                    "ticketIdentities":[
+                            {
+                            "id":39194,
+                            "type":"barcode",
+                            "code":"1564646579879",
+                            "message":null,
+                            "userId":null,
+                            "validDatePeriodId":null,
+                            "maxUsage":1,
+                            "barcodeType":"EAN13",
+                            "orderLineId":39218
+                         },
+                        {
+                            "id":39195,
+                            "type":"barcode",
+                            "code":"4897984612311",
+                            "message":null,
+                            "userId":null,
+                            "validDatePeriodId":null,
+                            "maxUsage":1,
+                            "barcodeType":"EAN13",
+                            "orderLineId":39218
+                        }
+                    ]
+               }
+            ]
+
+### Delete Orderline [DELETE]
+
+Delete order line
+
++ Parameters
+    + id (number, required) - Orderline ID to be deleted
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200
+
+## Payment Transactions [/channel/payment-transaction]
+### Create a new Payment Transaction [POST]
+
+Create a new payment transaction. Call this when user intends to pay for the order. Only if payment will be handled by the API, otherwise use ‘complete=1’ to finalize the order.
+
++ Response 201
+
+    + Headers
+
+            Location: /channel/payment-transaction/{transactionId}
+
+## Payment URL and Form [/channel/payment-transaction/{transactionId}?continueUrl={continueUrl}&cancelUrl={cancelUrl}&ip={ip}]
+### Get Payment URL and Form Fields [GET]
+
+Retrieve payment action url and required form fields. The data received is only supposed to be used as is and result in a form that the user can submit. The action specified in response must be set as html form action, so the user would be directed to payment gateway. Any modification to form fields will result in an error in payment gateway.
+
++ Parameters
+    + transactionId (number, required) - The transaction ID
+    + continueUrl (string, required) - Absolute url of where to redirect user after completing payment
+    + cancelUrl (string, required) - Absolute url of where to redirect user after cancelling payment
+    + ip (string, required) - Client IP address
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <transaction xmlns="https://gotour.dk/pcm/channel/payment-transaction">
+                <action>https://secure.quickpay.dk/form/</action>
+                <fields>
+                    <protocol>3</protocol>
+                    <msgtype>authorize</msgtype>
+                    <merchant>32499171</merchant>
+                    <language>da</language>
+                    <ordernumber>an_dtr_dev_test_72</ordernumber>
+                    <amount>6500</amount>
+                    <currency>DKK</currency>
+                    <continueurl>https://www.google.com</continueurl>
+                    <cancelurl>https://www.google.com</cancelurl>
+                    <callbackurl>https://dev.alletidersapi.com/channel/payment-callback?channel=Drupal</callbackurl>
+                    <autocapture>0</autocapture>
+                    <description></description>
+                    <ipaddress>192.168.0.1</ipaddress>
+                    <md5check>e72db3f0a80e28b4e2c6c7eb16b57679</md5check>
+                </fields>
+            </transaction>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "action":"https:\/\/secure.quickpay.dk\/form\/",
+                "fields":{
+                    "protocol":"3",
+                    "msgtype":"authorize",
+                    "merchant":"32499171",
+                    "language":"da",
+                    "ordernumber":"an_dtr_dev_test_72",
+                    "amount":6500,
+                    "currency":"DKK",
+                    "continueurl":"https:\/\/www.google.com",
+                    "cancelurl":"https:\/\/www.google.com",
+                    "callbackurl":"https:\/\/dev.alletidersapi.com\/channel\/payment-callback?channel=Drupal",
+                    "autocapture":"0",
+                    "description":"",
+                    "ipaddress":"192.168.0.1",
+                    "md5check":"e72db3f0a80e28b4e2c6c7eb16b57679"
+                }
+            }
+
+## Payment Callback [/channel/payment-callback]
+### Process Payment Data [POST]
+
+This resource is only supposed to process data received from the QuickPay payment gateway. Parameters and outcome are implementation dependant.
+
++ Response 200
+
+# Group Products
+
+## Search Products [/channel/product/?types={types}&city={city}&theme={theme}&provider={provider}&ids={ids}&offset={offset}&limit={limit}&startDate={startDate}&endDate={endDate}&modified={modified}&random={random}&accommodations={accommodations}&includeAllotments={includeAllotments}]
+### Get Product List [GET]
+
+Retrieve a list of products matching search criteria. Multiple optional parameters are available to filter the result
+
++ Parameters
+    + types (optional, array[string]) ... Limits the results to products of these types.
+        + Values
+            + `standard`
+            + `booking`
+            + `package`
+            + `group`
+    + city (number, optional) - City id, value can be retrieved via city resource.
+    + theme (number, optional) - Theme id, value can be retrieved via theme resource.
+    + provider (number, optional) - Provider id, value can be retrieved via provider resource
+    + ids (array[number], optional) - Only these specific products will be included in the result and only if they match other rules.
+    + offset (number, optional) - Number of products to skip.
+        + Default: 0
+    + limit (number, optional) - Number of products to find.
+        + Default: 10
+    + startDate: `2013-05-21` (string, optional) - The date in the format (Y-m-d). Starting date to filter allotments.
+    + endDate: `2014-01-21` (string, optional) - The date in the format (Y-m-d). Ending date to filter allotments.
+    + modified: `2013-02-13+09:54:26` (string, optional) - The date and time in the format (Y-m-d H:i:s). Can be specified as a string or as an array with keys [start] and [end].
+    + random (number, optional) - Indicates if the resulting products will be sorted randomly.
+    + accommodations (number, optional) - If the value is 1, only booking products (that are accommodations) will be returned.
+            If value is 0, booking products (but not accommodations) will be returned.
+            Otherwise result is not affected.
+        + Default: -1
+    + includeAllotments (number, optional) - Indicates if the resulting products will have allotments in-lined according to the startDate and endDate.
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
+
++ Response 200 (application/xml)
+
+    + Body
+ 
+            <?xml version="1.0" encoding="UTF-8"?>
+            <products xmlns="https://gotour.dk/pcm/channel/product" count="12">
+                <product id="9" ver="5" providerId="8">
+                    <insertTime>2013-02-07T13:51:43+01:00</insertTime>
+                    <salesEmail>khe@gotour.dk</salesEmail>
+                    <modifiedTime>2015-11-26T11:36:01+01:00</modifiedTime>
+                    <isFree>0</isFree>
+                    <allowOrderlineComment>1</allowOrderlineComment>
+                    <coords>
+                        <latitude>57.024961</latitude>
+                        <longitude>9.940118</longitude>
+                    </coords>
+                    <title>Entre på Gilleleje Museum - 1 voksen</title>
+                    <intro>&lt;p&gt;&#xD;Kort beskrivelse af indgangsbilletten.&lt;/p&gt;</intro>
+                    <description>&lt;p&gt;&#xD;L&amp;aelig;ngere beskrivelse af indgangsbilletten.&lt;/p&gt;</description>
+                    <price>7500</price>
+                    <fullPrice>7500</fullPrice>
+                    <intervalUnit>day</intervalUnit>
+                    <intervalMin>1</intervalMin>
+                    <intervalMax>1</intervalMax>
+                    <type>booking</type>
+                    <commentPlaceholder>Kommenter på dette testprodukt</commentPlaceholder>
+                    <providerName>Test udbyder</providerName>
+                    <images>
+                        <image>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/03d.jpg</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/03d.jpg</org>
+                        </image>
+                    </images>
+                </product>
+                <product id="10" ver="2" providerId="9">
+                    <insertTime>2013-02-07T13:57:29+01:00</insertTime>
+                    <salesEmail>khe@gotour.dk</salesEmail>
+                    <modifiedTime>2015-11-26T11:36:01+01:00</modifiedTime>
+                    <isFree>0</isFree>
+                    <allowOrderlineComment>1</allowOrderlineComment>
+                    <title>1 dags leje af voksencykel (herre)</title>
+                    <intro>&lt;p&gt;&#xD;Beskrivelse af den fine herrecykel&lt;/p&gt;</intro>
+                    <description>&lt;p&gt;&#xD;L&amp;aelig;ngere beskrivelse af cyklen.&lt;/p&gt;</description>
+                    <price>5000</price>
+                    <fullPrice>5000</fullPrice>
+                    <intervalUnit>day</intervalUnit>
+                    <intervalMin>1</intervalMin>
+                    <intervalMax>1</intervalMax>
+                    <type>booking</type>
+                    <commentPlaceholder>Kommenter på dette testprodukt</commentPlaceholder>
+                    <providerName>Test udbyder</providerName>
+                    <images>
+                        <image>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/050.jpg</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/050.jpg</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/050.jpg</org>
+                        </image>
+                    </images>
+                    <allotments>
+                        <allotment id="3633">
+                            <bookingEventId>183</bookingEventId>
+                            <start>2013-05-22T01:00:00+02:00</start>
+                            <end>2013-05-23T01:00:00+02:00</end>
+                            <availableTotal>1000</availableTotal>
+                            <isClosed>0</isClosed>
+                            <available>1000</available>
+                        </allotment>
+                    </allotments>
+                </product>
+                <!-- Accommodation product with change-dates on Saturday (1 week) and monday (4 days) -->
+                <product id="34" ver="3" providerId="6">
+                    <insertTime>2013-02-27T09:52:39+01:00</insertTime>
+                    <salesEmail>lan@visitnordsjaelland.com</salesEmail>
+                    <modifiedTime>2015-11-26T11:36:01+01:00</modifiedTime>
+                    <isFree>0</isFree>
+                    <allowOrderlineComment>1</allowOrderlineComment>
+                    <title>Hytte</title>
+                    <intro>
+                        <p>Dejlig hytte til 4 personer</p>
+                    </intro>
+                    <description>
+                        <p>Dejlig hytte til 4 personer med udsigt over &oslash;resund</p>
+                    </description>
+                    <fullPrice>49800</fullPrice>
+                    <intervalUnit>day</intervalUnit>
+                    <intervalMin>1</intervalMin>
+                    <intervalMax>1</intervalMax>
+                    <type>booking</type>
+                    <providerName>Test udbyder</providerName>
+                    <allotments>
+                        <allotment id="5391,5392,5393,5394,5395,5396,5397">
+                            <bookingEventId>208</bookingEventId>
+                            <start>2013-10-19T00:00:00+02:00</start>
+                            <end>2013-10-26T00:00:00+02:00</end>
+                            <availableTotal>25</availableTotal>
+                            <isClosed>0</isClosed>
+                            <available>25</available>
+                        </allotment>
+                        <allotment id="5398,5399,5400,5401,5402,5403,5404">
+                            <bookingEventId>208</bookingEventId>
+                            <start>2013-10-26T00:00:00+02:00</start>
+                            <end>2013-11-02T00:00:00+01:00</end>
+                            <availableTotal>25</availableTotal>
+                            <isClosed>0</isClosed>
+                            <available>25</available>
+                        </allotment>
+                        <allotment id="5393,5394,5395,5396">
+                            <bookingEventId>208</bookingEventId>
+                            <start>2013-10-21T00:00:00+02:00</start>
+                            <end>2013-10-25T00:00:00+02:00</end>
+                            <availableTotal>25</availableTotal>
+                            <isClosed>0</isClosed>
+                            <available>25</available>
+                        </allotment>
+                        <allotment id="5400,5401,5402,5403">
+                            <bookingEventId>208</bookingEventId>
+                            <start>2013-10-28T00:00:00+01:00</start>
+                            <end>2013-11-01T00:00:00+01:00</end>
+                            <availableTotal>25</availableTotal>
+                            <isClosed>0</isClosed>
+                            <available>25</available>
+                        </allotment>
+                    </allotments>
+                    <images>
+                        <image>
+                            <thumb>https://dev-cpm.dk/upload/00/000/thumbs/12a.png</thumb>
+                            <main>https://dev-cpm.dk/upload/00/000/main/12a.png</main>
+                            <org>https://dev-cpm.dk/upload/00/000/12a.png</org>
+                        </image>
+                    </images>
+                </product>
+            </products>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "products":[
+                    {
+                        "id":9,
+                        "ver":5,
+                        "providerId":8,
+                        "insertTime":"2013-02-07T13:51:43+01:00",
+                        "salesEmail":"khe@gotour.dk",
+                        "modifiedTime": "2015-11-26T11:36:01+01:00",
+                        "isFree": 0,
+                        "allowOrderlineComment": 1,
+                        "coords":{"latitude":57.024961,"longitude":9.940118},
+                        "externalUrl":null,
+                        "title":"Entre p\u00e5 Gilleleje Museum - 1 voksen",
+                        "intro":"<p>\r\n\tKort beskrivelse af indgangsbilletten.<\/p>\r\n",
+                        "description":"<p>\r\n\tL&aelig;ngere beskrivelse af indgangsbilletten.<\/p>\r\n",
+                        "price":7500,
+                        "fullPrice":7500,
+                        "intervalUnit":"day",
+                        "intervalMin":1,
+                        "intervalMax":1,
+                        "type":"booking",
+                        "commentPlaceholder": "Kommenter på dette testprodukt",
+                        "providerName":"Test udbyder",
+                        "images":[
+                            {
+                                "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/03d.jpg",
+                                "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/03d.jpg",
+                                "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/03d.jpg"
+                            }
+                        ],
+                        "allotments":[
+                            {
+                                "id":2644,
+                                "bookingEventId":176,
+                                "start":"2013-05-22T01:00:00+02:00",
+                                "end":"2013-05-23T01:00:00+02:00",
+                                "availableTotal":"75",
+                                "isClosed":"0",
+                                "available":75
+                            }
+                        ]
+                    },
+                    {
+                        "id":10,
+                        "ver":2,
+                        "providerId":9,
+                        "insertTime":"2013-02-07T13:57:29+01:00",
+                        "salesEmail":"khe@gotour.dk",
+                        "externalUrl":null,
+                        "title":"1 dags leje af voksencykel (herre)",
+                        "intro":"<p>\r\n\tBeskrivelse af den fine herrecykel<\/p>\r\n",
+                        "description":"<p>\r\n\tL&aelig;ngere beskrivelse af cyklen.<\/p>\r\n",
+                        "price":5000,
+                        "fullPrice":5000,
+                        "intervalUnit":"day",
+                        "intervalMin":1,
+                        "intervalMax":1,
+                        "type":"booking",
+                        "providerName":"Test udbyder",
+                        "images":[
+                            {
+                                "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/050.jpg",
+                                "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/050.jpg",
+                                "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/050.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "id":34,
+                        "ver":3,
+                        "providerId":6,
+                        "label":null,
+                        "insertTime":"2013-02-27T09:52:39+01:00",
+                        "salesEmail":"lan@visitnordsjaelland.com",
+                        "modifiedTime":{
+                        "date":"2013-10-16 13:27:17",
+                        "timezone_type":1,
+                        "timezone":"+02:00"
+                     },
+                        "coords":null,
+                        "externalUrl":null,
+                        "title":"Hytte",
+                        "intro":"<p>\r\n\tDejlig hytte til 4 personer<\/p>\r\n",
+                        "description":"<p>\r\n\tDejlig hytte til 4 personer med udsigt over &Oslash;resund<\/p>\r\n",
+                        "price":null,
+                        "fullPrice":49800,
+                        "intervalUnit":"day",
+                        "intervalMin":1,
+                        "intervalMax":1,
+                        "type":"booking",
+                        "providerName":"Test udbyder",
+                        "allotments":{
+                            "2013-10-19 00:00:00_ef3f331fa82fd2a7666f438a21c3307e":{
+                                "id":"5391,5392,5393,5394,5395,5396,5397",
+                                "bookingEventId":208,
+                                "start":"2013-10-19T00:00:00+02:00",
+                                "end":"2013-10-26T00:00:00+02:00",
+                                "availableTotal":"25",
+                                "isClosed":"0",
+                                "available":25
+                            },
+                            "2013-10-26 00:00:00_117c4c3d0b64dcb3a1a418c09b7be1e7":{
+                                "id":"5398,5399,5400,5401,5402,5403,5404",
+                                "bookingEventId":208,
+                                "start":"2013-10-26T00:00:00+02:00",
+                                "end":"2013-11-02T00:00:00+01:00",
+                                "availableTotal":"25",
+                                "isClosed":"0",
+                                "available":25
+                            },
+                            "2013-10-21 00:00:00_d6297c6db22b92372d99784e8f67430d":{
+                                "id":"5393,5394,5395,5396",
+                                "bookingEventId":208,
+                                "start":"2013-10-21T00:00:00+02:00",
+                                "end":"2013-10-25T00:00:00+02:00",
+                                "availableTotal":"25",
+                                "isClosed":"0",
+                                "available":25
+                            },
+                            "2013-10-28 00:00:00_5eeee4a0f922508a76c03d7188b56423":{
+                                "id":"5400,5401,5402,5403",
+                                "bookingEventId":208,
+                                "start":"2013-10-28T00:00:00+01:00",
+                                "end":"2013-11-01T00:00:00+01:00",
+                                "availableTotal":"25",
+                                "isClosed":"0",
+                                "available":25
+                            }
+                        },
+                        "images":[
+                            {
+                                "thumb":"https:\/\/dev-cpm.dk\/upload\/00\/000\/thumbs\/12a.png",
+                                "main":"https:\/\/dev-cpm.dk\/upload\/00\/000\/main\/12a.png",
+                                "org":"https:\/\/dev-cpm.dk\/upload\/00\/000\/12a.png"
+                            }
+                        ]
+                    }
+               ],
+                "productsCount":12
+            }
+
+## Get Product [/channel/product/{id}]
+### Get a single product [GET]
+
++ Parameters
+    + id (number, required) - The product ID
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <product xmlns="https://gotour.dk/pcm/channel/product" id="9" ver="5" providerId="8">
+                <insertTime>2013-02-07T13:51:43+01:00</insertTime>
+                <salesEmail>khe@gotour.dk</salesEmail>
+                <isFree>0</isFree>
+                <allowOrderlineComment>1</allowOrderlineComment>
+                <coords>
+                    <latitude>57.024961</latitude>
+                    <longitude>9.940118</longitude>
+                </coords>
+                <hasInventory>1</hasInventory>
+                <title>Entre på Gilleleje Museum - 1 voksen</title>
+                <intro>&lt;p&gt;&#xD;Kort beskrivelse af indgangsbilletten.&lt;/p&gt;</intro>
+                <description>&lt;p&gt;&#xD;L&amp;aelig;ngere beskrivelse af indgangsbilletten.&lt;/p&gt;</description>
+                <price>7500</price>
+                <fullPrice>7500</fullPrice>
+                <intervalUnit>day</intervalUnit>
+                <intervalMin>1</intervalMin>
+                <intervalMax>1</intervalMax>
+                <type>booking</type>
+                <canonicalUrl></canonicalUrl>
+                <commentPlaceholder>Kommenter på dette testprodukt</commentPlaceholder>
+                <providerName>Test udbyder</providerName>
+                <images>
+                    <image>
+                        <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/03d.jpg</thumb>
+                        <main>https://dev.alletidersapi.com/upload/00/000/main/03d.jpg</main>
+                        <org>https://dev.alletidersapi.com/upload/00/000/03d.jpg</org>
+                    </image>
+                </images>
+            </product>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id":9,
+                "ver":5,
+                "providerId":8,
+                "insertTime":"2013-02-07T13:51:43+01:00",
+                "salesEmail":"khe@gotour.dk",
+                "modifiedTime": "2015-11-26T11:36:01+01:00",
+                "isFree": 0,
+                "allowOrderlineComment": 1,
+                "coords":{"latitude":57.024961,"longitude":9.940118},
+                "hasInventory": true,
+                "externalUrl":null,
+                "title":"Entre p\u00e5 Gilleleje Museum - 1 voksen",
+                "intro":"<p>\r\n\tKort beskrivelse af indgangsbilletten.<\/p>\r\n",
+                "description":"<p>\r\n\tL&aelig;ngere beskrivelse af indgangsbilletten.<\/p>\r\n",
+                "price":7500,
+                "fullPrice":7500,
+                "intervalUnit":"day",
+                "intervalMin":1,
+                "intervalMax":1,
+                "type":"booking",
+                "commentPlaceholder": "Kommenter på dette testprodukt",
+                "providerName":"Test udbyder",
+                "images":[
+                    {
+                        "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/03d.jpg",
+                        "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/03d.jpg",
+                        "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/03d.jpg"
+                    }
+                ],
+                "allotments":[
+                    {
+                        "id":2644,
+                        "bookingEventId":176,
+                        "start":"2013-05-22T01:00:00+02:00",
+                        "end":"2013-05-23T01:00:00+02:00",
+                        "availableTotal":"75",
+                        "isClosed":"0",
+                        "available":75
+                    }
+                ]
+            }
+
+## Popular Products [/channel/popular-product?limit={limit}&days={days}&city={city}&theme={theme}}]
+### Get Popular Products [GET]
+
+Retrieve a list of popular products.
+
++ Parameters
+    + limit (number, optional) - Maximum number of popular products to find.
+        + Default: 5
+    + days (number, optional) - Number of days to look in the past.
+        + Default: 15
+    + city (number, optional) - City id to filter providers that product belongs to.
+    + theme (number, optional) - Theme id to filter products.
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+     
+            <?xml version="1.0" encoding="UTF-8"?>
+            <popularProducts xmlns="https://gotour.dk/pcm/channel/popular-product">
+                <popularProduct id="18" providerId="10">
+                    <title>Entrebillet - Det Tekniske Museum - 1 Voksen</title>
+                    <lastSaleDate>2013-02-26T14:40:58+01:00</lastSaleDate>
+                    <numberOfSales>44</numberOfSales>
+                </popularProduct>
+                <popularProduct id="10" providerId="9">
+                    <title>1 dags leje af voksencykel (herre)</title>
+                    <lastSaleDate>2013-02-26T14:40:58+01:00</lastSaleDate>
+                    <numberOfSales>30</numberOfSales>
+                </popularProduct>
+                <popularProduct id="11" providerId="9">
+                    <title>1 dags leje af voksencykel (dame)</title>
+                    <lastSaleDate>2013-02-26T14:40:58+01:00</lastSaleDate>
+                    <numberOfSales>27</numberOfSales>
+                </popularProduct>
+                <popularProduct id="12" providerId="9">
+                    <title>1 dags leje af barnecykel (pige)</title>
+                    <lastSaleDate>2013-02-26T14:40:58+01:00</lastSaleDate>
+                    <numberOfSales>24</numberOfSales>
+                </popularProduct>
+                <popularProduct id="25" providerId="17">
+                    <title>Enkeltværelse</title>
+                    <lastSaleDate>2013-02-26T14:30:12+01:00</lastSaleDate>
+                    <numberOfSales>18</numberOfSales>
+                </popularProduct>
+            </popularProducts>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id":18,
+                    "title":"Entrebillet - Det Tekniske Museum - 1 Voksen",
+                    "lastSaleDate":"2013-02-26T14:40:58+01:00",
+                    "numberOfSales":"44",
+                    "providerId":10
+                },
+                {
+                    "id":10,
+                    "title":"1 dags leje af voksencykel (herre)",
+                    "lastSaleDate":"2013-02-26T14:40:58+01:00",
+                    "numberOfSales":"30",
+                    "providerId":9
+                },
+                {
+                    "id":11,
+                    "title":"1 dags leje af voksencykel (dame)",
+                    "lastSaleDate":"2013-02-26T14:40:58+01:00",
+                    "numberOfSales":"27",
+                    "providerId":9
+                },
+                {
+                    "id":12,
+                    "title":"1 dags leje af barnecykel (pige)",
+                    "lastSaleDate":"2013-02-26T14:40:58+01:00",
+                    "numberOfSales":"24",
+                    "providerId":9
+                },
+                {
+                    "id":25,
+                    "title":"Enkeltv\u00e6relse",
+                    "lastSaleDate":"2013-02-26T14:30:12+01:00",
+                    "numberOfSales":"18",
+                    "providerId":17
+                }
+            ]
+
+## Product Allotment [/channel/product-allotment?product={product}&offset={offset}&limit={limit}]
+### Get Product Allotments [GET]
+
+Retrieve a list of product allotments.
+
++ Parameters
+    + product (number, required) - Product id.
+    + startDate (string, optional) - Starting date for allotments, default is current date.
+    + offset (number, optional) - Number of allotments to skip.
+        + Default: 0
+    + limit (number, optional) - Number of allotments to return.
+        + Default: 7
+    + Interval (string, optional) - Length of interval to fetch (only applicable to Accommodation products)
+    + IntervalUnit (optional, string) ... Unit of interval (only applicable to Accommodation products)
+        + Values
+            + `hour`
+            + `day`
+            + `week`
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <allotments xmlns="https://gotour.dk/pcm/channel/product-allotment" count="63">
+                <allotment id="3340">
+                    <bookingEventId>181</bookingEventId>
+                    <start>2013-05-22T01:00:00+02:00</start>
+                    <end>2013-05-23T01:00:00+02:00</end>
+                    <available>15</available>
+                </allotment>
+                <allotment id="3341">
+                    <bookingEventId>181</bookingEventId>
+                    <start>2013-05-23T01:00:00+02:00</start>
+                    <end>2013-05-24T01:00:00+02:00</end>
+                    <available>15</available>
+                </allotment>
+                <allotment id="3342">
+                    <bookingEventId>181</bookingEventId>
+                    <start>2013-05-24T01:00:00+02:00</start>
+                    <end>2013-05-25T01:00:00+02:00</end>
+                    <available>15</available>
+                </allotment>
+                <allotment id="3343">
+                    <bookingEventId>181</bookingEventId>
+                    <start>2013-05-25T01:00:00+02:00</start>
+                    <end>2013-05-26T01:00:00+02:00</end>
+                    <available>15</available>
+                </allotment>
+                <allotment id="3344">
+                    <bookingEventId>181</bookingEventId>
+                    <start>2013-05-26T01:00:00+02:00</start>
+                    <end>2013-05-27T01:00:00+02:00</end>
+                    <available>15</available>
+                </allotment>
+                <allotment id="3345">
+                    <bookingEventId>181</bookingEventId>
+                    <start>2013-05-27T01:00:00+02:00</start>
+                    <end>2013-05-28T01:00:00+02:00</end>
+                    <available>15</available>
+                </allotment>
+                <allotment id="3346">
+                    <bookingEventId>181</bookingEventId>
+                    <start>2013-05-28T01:00:00+02:00</start>
+                    <end>2013-05-29T01:00:00+02:00</end>
+                    <available>15</available>
+                </allotment>
+            </allotments>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "allotments":
+                {
+                    "2014-11-10":
+                    {
+                        "id":"4790,4791,4792,4793",
+                        "bookingEventId":135,
+                        "start":"2014-11-10T00:00:00+01:00",
+                        "end":"2014-11-14T00:00:00+01:00",
+                        "intervalUnit":"day",
+                        "availableTotal":"15",
+                        "isClosed":"0",
+                        "available":15,
+                        "combinationId":"4790,4791,4792,4793",
+                        "price":65000
+                    },
+                    "2014-11-24":
+                    {
+                        "id":"4889,4890,4891,4892",
+                        "bookingEventId":137,
+                        "start":"2014-11-24T00:00:00+01:00",
+                        "end":"2014-11-28T00:00:00+01:00",
+                        "intervalUnit":"day",
+                        "availableTotal":"10",
+                        "isClosed":"0",
+                        "available":10,
+                        "combinationId":"4889,4890,4891,4892",
+                        "price":65000
+                    },
+                    "2014-11-11":{
+                        "id":"4791,4792,4793,4794",
+                        "bookingEventId":135,
+                        "start":"2014-11-11T00:00:00+01:00",
+                        "end":"2014-11-15T00:00:00+01:00",
+                        "intervalUnit":"day",
+                        "availableTotal":"15",
+                        "isClosed":"0",
+                        "available":15,
+                        "combinationId":"4791,4792,4793,4794",
+                        "price":65000
+                    }
+                },
+                "allotmentsCount":3
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "allotments":
+                {
+                    "2014-11-10":
+                    {
+                        "2014-11-10 00:00:00":
+                        {
+                            "id":5012,
+                            "bookingEventId":158,
+                            "start":"2014-11-10T00:00:00+01:00",
+                            "end":"2014-11-17T00:00:00+01:00",
+                            "available":4
+                        }
+                    },
+                    "2014-11-17":
+                    {
+                        "2014-11-17 00:00:00":
+                        {
+                            "id":5013,
+                            "bookingEventId":158,
+                            "start":"2014-11-17T00:00:00+01:00",
+                            "end":"2014-11-24T00:00:00+01:00",
+                            "available":5
+                        }
+                    },
+                    "2014-11-24":
+                    {
+                        "2014-11-24 00:00:00":
+                        {
+                            "id":5014,
+                            "bookingEventId":158,
+                            "start":"2014-11-24T00:00:00+01:00",
+                            "end":"2014-12-01T00:00:00+01:00",
+                            "available":5
+                        }
+                    },
+                    "2014-12-01":
+                    {
+                        "2014-12-01 00:00:00":
+                        {
+                            "id":5015,
+                            "bookingEventId":158,
+                            "start":"2014-12-01T00:00:00+01:00",
+                            "end":"2014-12-08T00:00:00+01:00",
+                            "available":5
+                        }
+                    },
+                    "2014-12-08":
+                    {
+                        "2014-12-08 00:00:00":
+                        {
+                            "id":5016,
+                            "bookingEventId":158,
+                            "start":"2014-12-08T00:00:00+01:00",
+                            "end":"2014-12-15T00:00:00+01:00",
+                            "available":5
+                        }
+                    },
+                " 2014-12-15":
+                    {
+                        "2014-12-15 00:00:00":
+                        {
+                            "id":5017,
+                            "bookingEventId":158,
+                            "start":"2014-12-15T00:00:00+01:00",
+                            "end":"2014-12-22T00:00:00+01:00",
+                            "available":5
+                        }
+                    }
+                },
+                "allotmentsCount":6
+            }
+
+## Cities [/channel/city]
+### Get City List [GET]
+
+Retrieve a list of cities that have at least one product for sale at this point in time. Product can be filtered using values from this resource.
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <cities xmlns="https://gotour.dk/pcm/channel/city">
+                <city id="2439">
+                    <title>Gilleleje</title>
+                </city>
+                <city id="2471">
+                    <title>Helsinge</title>
+                </city>
+                <city id="2344">
+                    <title>Helsingør</title>
+                </city>
+                <city id="2298">
+                    <title>Hillerød</title>
+                </city>
+                <city id="2319">
+                    <title>Slangerup</title>
+                </city>
+            </cities>
+
++ Response 200 (application/json)
+
+    + Body
+            {
+               "2439":{
+                    "id":2439,
+                    "title":"Gilleleje"
+                },
+               "2471":{
+                    "id":2471,
+                    "title":"Helsinge"
+                },
+               "2344":{
+                    "id":2344,
+                    "title":"Helsing\u00f8r"
+                },
+               "2298":{
+                    "id":2298,
+                    "title":"Hiller\u00f8d"
+               },
+               "2319":{
+                    "id":2319,
+                    "title":"Slangerup"
+                }
+            }
+
+## Themes [/channel/theme]
+### Get List of Themes [GET]
+
+Retrieve a list of active themes. Products can be filtered using values from this resource. Each product can belong to multiple themes.
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <themes xmlns="https://gotour.dk/pcm/channel/theme">
+                <theme id="1">
+                    <name>Theme 1</name>
+                    <descriptionShort></descriptionShort>
+                    <descriptionLong></descriptionLong>
+                </theme>
+                <theme id="2">
+                    <name>Theme 2</name>
+                    <descriptionShort></descriptionShort>
+                    <descriptionLong></descriptionLong>
+                </theme>
+            </themes>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "1":{
+                    "id":1,
+                    "name":"Theme 1",
+                    "descriptionShort":"",
+                    "descriptionLong":""
+                },
+                "2":{
+                    "id":2,
+                    "name":"Theme 2",
+                    "descriptionShort":"",
+                    "descriptionLong":""
+                }
+            }
+
+## Cart Related Products [/channel/cart-related-products?limit={limit}]
+### Get Related Products [GET]
+
+Retrieve related products to products added to the shopping cart. The products are chosen by theme and city where theme has a priority. If there are no products from the same theme and city, then any other products will be returned. Products are returned randomly and there will not be the same products returned as in the shopping cart.
+
++ Parameters
+    + limit (number, optional) - Maximum number of related products to return.
+        + Default: 4
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <cart-related-products xmlns="https://gotour.dk/pcm/channel/cart-related-products" count="4">
+                <product id="4" ver="3" providerId="1">
+                    <insertTime>2013-07-09T12:58:01+02:00</insertTime>
+                    <salesEmail>khe@gotour.dk</salesEmail>
+                    <modifiedTime>2014-08-12T09:40:45+02:00</modifiedTime>
+                    <lockedInAdmin>0</lockedInAdmin>
+                    <isFree>0</isFree>
+                    <title>Kanotur - test</title>
+                    <intro>test</intro>
+                    <description>&lt;p&gt;&#13;test&lt;/p&gt;&#13;</description>
+                    <providerName>Test produktudbyder</providerName>
+                    <type>theme</type>
+                    <isAccommodation>0</isAccommodation>
+                    <images>
+                        <image>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02d.jpg</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02d.jpg</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02d.jpg</org>
+                        </image>
+                    </images>
+                </product>
+                <product id="6" ver="5" providerId="1">
+                    <insertTime>2013-07-09T15:43:10+02:00</insertTime>
+                    <salesEmail>kdr@gotour.dk</salesEmail>
+                    <modifiedTime>2014-06-18T15:57:09+02:00</modifiedTime>
+                    <lockedInAdmin>0</lockedInAdmin>
+                    <isFree>0</isFree>
+                    <title>Ørken</title>
+                    <intro>ørken...</intro>
+                    <description>&lt;p&gt;&#13;Stor &amp;oslash;rken..&lt;/p&gt;&#13;</description>
+                    <providerName>Test produktudbyder</providerName>
+                    <type>theme</type>
+                    <isAccommodation></isAccommodation>
+                    <images>
+                        <image>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/023.jpg</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/023.jpg</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/023.jpg</org>
+                        </image>
+                        <image>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/022.jpg</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/022.jpg</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/022.jpg</org>
+                        </image>
+                    </images>
+                </product>
+                <product id="1" ver="1" providerId="1">
+                    <insertTime>2013-07-04T17:15:27+02:00</insertTime>
+                    <salesEmail>khe@gotour.dk</salesEmail>
+                    <modifiedTime>2014-07-22T13:41:55+02:00</modifiedTime>
+                    <lockedInAdmin>0</lockedInAdmin>
+                    <isFree>0</isFree>
+                    <title>Sommerhus</title>
+                    <intro>test</intro>
+                    <description>&lt;p&gt;&#13;test&lt;/p&gt;&#13;</description>
+                    <providerName>Test produktudbyder</providerName>
+                    <type>city</type>
+                    <isAccommodation>1</isAccommodation>
+                    <images>
+                        <image>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02c.jpg</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02c.jpg</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02c.jpg</org>
+                        </image>
+                    </images>
+                </product>
+                <product id="25" ver="2" providerId="1">
+                    <insertTime>2013-09-26T12:37:34+02:00</insertTime>
+                    <salesEmail>khe@gotour.dk</salesEmail>
+                    <modifiedTime>2014-08-06T10:27:05+02:00</modifiedTime>
+                    <lockedInAdmin>0</lockedInAdmin>
+                    <isFree>0</isFree>
+                    <title>Bookingprodukt - test</title>
+                    <intro>Kort beskrivelse af produktet</intro>
+                    <description>&lt;p&gt;&#13;test&lt;/p&gt;&#13;</description>
+                    <providerName>Test produktudbyder</providerName>
+                    <type>other</type>
+                    <isAccommodation>0</isAccommodation>
+                    <images>
+                        <image>
+                            <thumb>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/thumbs/02e.JPG</thumb>
+                            <main>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/main/02e.JPG</main>
+                            <org>https://projects.dev/aktivnordjylland/trunk/public/upload/00/000/02e.JPG</org>
+                        </image>
+                    </images>
+                </product>
+            </cart-related-products>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id":25,
+                    "ver":2,
+                    "providerId":1,
+                    "label":null,
+                    "insertTime":"2013-09-26T12:37:34+02:00",
+                    "salesEmail":"khe@gotour.dk",
+                    "modifiedTime":"2014-08-06T10:27:05+02:00",
+                    "lockedInAdmin":0,
+                    "isFree":0,
+                    "title":"Bookingprodukt - test",
+                    "intro":"Kort beskrivelse af produktet",
+                    "description":"<p>\r\n\ttest<\/p>\r\n,
+                    "providerName":"Test produktudbyder",
+                    "type":"theme",
+                    "isAccommodation":"0",
+                    "images":[
+                        {
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02e.JPG",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02e.JPG",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02e.JPG"
+                        }
+                    ]
+                },
+                {
+                    "id":1,
+                    "ver":1,
+                    "providerId":1,
+                    "label":null,
+                    "insertTime":"2013-07-04T17:15:27+02:00",
+                    "salesEmail":"khe@gotour.dk",
+                    "modifiedTime":"2014-07-22T13:41:55+02:00",
+                    "lockedInAdmin":0,
+                    "isFree":0,
+                    "title":"Sommerhus",
+                    "intro":"test",
+                    "description":"<p>\r\n\ttest<\/p>\r\n",
+                    "providerName":"Test produktudbyder",
+                    "type":"theme",
+                    "isAccommodation":"1",
+                    "images":[
+                        {
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/02c.jpg",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/02c.jpg",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/02c.jpg"
+                        }
+                    ]
+               },
+               {
+                    "id":6,
+                    "ver":5,
+                    "providerId":1,
+                    "label":null,
+                    "insertTime":"2013-07-09T15:43:10+02:00",
+                    "salesEmail":"kdr@gotour.dk",
+                    "modifiedTime":"2014-06-18T15:57:09+02:00",
+                    "lockedInAdmin":0,"isFree":0,
+                    "title":"\u00d8rken",
+                    "intro":"\u00f8rken...",
+                    "description":"<p>\r\n\tStor &oslash;rken..<\/p>\r\n",
+                    "providerName":"Test produktudbyder",
+                    "type":"city",
+                    "isAccommodation":"",
+                    "images":[
+                        {
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/023.jpg",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/023.jpg",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/023.jpg"
+                        },
+                        {
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/022.jpg",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/022.jpg",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/022.jpg"
+                        }
+                    ]
+               },
+               {
+                    "id":7,
+                    "ver":2,
+                    "providerId":1,
+                    "label":null,
+                    "insertTime":"2013-07-09T16:04:28+02:00",
+                    "salesEmail":"kdr@gotour.dk",
+                    "modifiedTime":"2014-06-18T15:59:48+02:00",
+                    "lockedInAdmin":0,
+                    "isFree":0,
+                    "title":"Koala",
+                    "intro":"test",
+                    "description":"<p>\r\n\ttest<\/p>\r\n",
+                    "providerName":"Test produktudbyder",
+                    "type":"other",
+                    "isAccommodation":"",
+                    "images":[
+                        {
+                            "thumb":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/thumbs\/021.jpg",
+                            "main":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/main\/021.jpg",
+                            "org":"https:\/\/projects.dev\/aktivnordjylland\/trunk\/public\/upload\/00\/000\/021.jpg"
+                        }
+                    ]
+               }
+            ]
+
+# Group Provider
+
+## Get Providers [/channel/provider?city={city}&having={having}]
+### Get List of Providers [GET]
+
+Retrieve a list of product providers. Optionally filtering by city and products they have. Currently only accommodation type is supported: so all providers or those who provide accommodations can be returned.
+
++ Parameters
+    + city (number, optional) - City id, value can be retrieved via city resource
+    + having (optional, array[string]) ... An array or comma separated values specifying product types. Only providers having at least one product of each given type is returned. Available types: accommodation
+        + Values
+            + `accommodation`
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <providers xmlns="https://gotour.dk/pcm/channel/provider">
+                <provider id="22">
+                    <name>7-Eleven</name>
+                    <description>Benzin station med kiosk salg, beliggende ved den store rundkørsel i Frederiksværk.&#13;&#13;</description>
+                    <contact></contact>
+                    <hours>1/1-2013 - 31/12-2013&#13; Døgnåben</hours>
+                    <coords>
+                        <latitude>-0.9809254406677402</latitude>
+                        <longitude>3.8935085179169826e101</longitude>
+                    </coords>
+                    <images>
+                        <image>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/10b.Shelle 7 -eleven</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/10b.Shelle 7 -eleven</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/10b.Shelle 7 -eleven</org>
+                        </image>
+                    </images>
+                </provider>
+                <provider id="53">
+                    <name>Adamsens Fisk</name>
+                    <description></description>
+                    <contact></contact>
+                    <hours></hours>
+                    <images>
+                        <image>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/1fc.Adamsens Fisk</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/1fc.Adamsens Fisk</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/1fc.Adamsens Fisk</org>
+                        </image>
+                        <image>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/1fb.Kærlighed på cykel i Kongernes Nordsjælland</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/1fb.Kærlighed på cykel i Kongernes Nordsjælland</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/1fb.Kærlighed på cykel i Kongernes Nordsjælland</org>
+                        </image>
+                        <image>
+                            <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/1fd.Langs den danske riviera</thumb>
+                            <main>https://dev.alletidersapi.com/upload/00/000/main/1fd.Langs den danske riviera</main>
+                            <org>https://dev.alletidersapi.com/upload/00/000/1fd.Langs den danske riviera</org>
+                        </image>
+                    </images>
+                </provider>
+            </providers>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id":22,
+                    "name":"7-Eleven",
+                    "description":"Benzin station med kiosk salg, beliggende ved den store rundk\u00f8rsel i Frederiksv\u00e6rk.\r\n\r\n",
+                    "contact":"",
+                    "hours":"1\/1-2013 - 31\/12-2013\r\nD\u00f8gn\u00e5ben",
+                    "coords":{
+                        "latitude":"-0.9809254406677402",
+                        "longitude":"3.8935085179169826e101"
+                    },
+                    "images":[
+                        {
+                            "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/10b.Shelle 7 -eleven",
+                            "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/10b.Shelle 7 -eleven",
+                            "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/10b.Shelle 7 -eleven"
+                        }
+                    ]
+                },
+                {
+                    "id":53,
+                    "name":"Adamsens Fisk",
+                    "description":"",
+                    "contact":"",
+                    "hours":"",
+                    "coords":null,
+                    "images":[
+                        {
+                            "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fc.Adamsens Fisk",
+                            "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fc.Adamsens Fisk",
+                            "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fc.Adamsens Fisk"
+                        },
+                        {
+                            "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland",
+                            "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland",
+                            "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fb.K\u00e6rlighed p\u00e5 cykel i Kongernes Nordsj\u00e6lland"
+                        },
+                        {
+                            "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/1fd.Langs den danske riviera",
+                            "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/1fd.Langs den danske riviera",
+                            "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/1fd.Langs den danske riviera"
+                        }
+                    ]
+               }
+            ]
+
+## Provider Details [/channel/provider/{id}?type={type}]
+### Get Details of Provider [GET]
+
+Retrieve provider details
+
++ Parameters
+    + id (number, required) - Provider ID
+    + type (optional, string) ... If this is set to ‘product’, id is treated as product id. In other words, provider is found by product.
+        + Values
+            + `product`
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <provider xmlns="https://gotour.dk/pcm/channel/provider" id="6">
+                <name>Skjalm Hvide Hotel</name>
+                <description>Et godt gammelt hotel.</description>
+                <contact>Telefon: 56 32 65 23</contact>
+                <hours>Åbent alle dage - ring for mere information</hours>
+                <coords>
+                    <latitude>-0.000000000029045075507383443</latitude>
+                    <longitude>-1.8041802729387393e230</longitude>
+                </coords>
+                <links>
+                        <link lang="da" type="local">https://google.dk</link>
+                        <link lang="en" type="local">https://google.com</link>
+                        <link lang="da" type="national">https://yahoo.dk</link>
+                        <link lang="en" type="national">https://yahoo.com</link>
+                </links>
+                <images>
+                    <image>
+                        <thumb>https://dev.alletidersapi.com/upload/00/000/thumbs/006.png</thumb>
+                        <main>https://dev.alletidersapi.com/upload/00/000/main/006.png</main>
+                        <org>https://dev.alletidersapi.com/upload/00/000/006.png</org>
+                    </image>
+                </images>
+            </provider>
+
++ Response 200 (applicaiton/json)
+
+    + Body
+
+            {
+                "id":6,
+                "name":"Skjalm Hvide Hotel",
+                "description":"Et godt gammelt hotel.",
+                "contact":"Telefon: 56 32 65 23",
+                "hours":"\u00c5bent alle dage - ring for mere information",
+                "coords":{
+                    "latitude":"-0.000000000029045075507383443",
+                    "longitude":"-1.8041802729387393e230"
+                },
+                "links":{
+                        "link":{
+                                "lang":"da",
+                                "type":"local",
+                                "link":"https://google.dk"
+                        },
+                        "link":{
+                                "lang":"en",
+                                "type":"local",
+                                "link":"https://google.com"
+                        },
+                        "link":{
+                                "lang":"da",
+                                "type":"national",
+                                "link":"https://yahoo.dk"
+                        },
+                        "link":{
+                                "lang":"en",
+                                "type":"national",
+                                "link":"https://yahoo.com"
+                        },
+                },
+                "images":[
+                    {
+                        "thumb":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/thumbs\/006.png",
+                        "main":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/main\/006.png",
+                        "org":"https:\/\/dev.alletidersapi.com\/upload\/00\/000\/006.png"
+                    }
+                ]
+            }
+
+# Group Barcode Details and Usage History
+
+## Ticket List [/channel/ticket-identity]
+### Get Barcode Details and History [GET]
+
+Returns barcode history and details.
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <ticketIdentities xmlns="https://gotour.dk/pcm/channel/ticket-identity">
+                <ticketIdentity id="23">
+                    <type>barcode</type>
+                    <code>8705647250635</code>
+                    <product id="6" ver="1">
+                        <title>Dobbeltværelse (pris for 2 pers.)</title>
+                        <ticketDescription>Tillykke med dit køb. </ticketDescription>
+                    </product>
+                    <usage/>
+                </ticketIdentity>
+                <ticketIdentity id="805">
+                    <type>barcode</type>
+                    <code>1234561234567</code>
+                    <validDatePeriodId>23</validDatePeriodId>
+                    <product id="35" ver="1">
+                        <title>Entre</title>
+                    </product>
+                    <usage>
+                        <scan id="1">
+                            <insertTime>2013-10-21T15:02:49+02:00</insertTime>
+                            <scannedBy>John Doe &lt;jd@example.com&gt;</scannedBy>
+                        </scan>
+                        <scan id="11">
+                            <insertTime>2013-10-21T15:40:12+02:00</insertTime>
+                            <scannedBy>John Doe &lt;jd@example.com&gt;</scannedBy>
+                        </scan>
+                    </usage>
+                </ticketIdentity>
+            </ticketIdentities>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+               {
+                    "id":25,
+                    "type":"barcode",
+                    "code":"8425201249386",
+                    "message":null,
+                    "userId":null,
+                    "validDatePeriodId":null,
+                    "maxUsage":1,
+                    "url":null,
+                    "product":{
+                        "id":25,
+                        "ver":1,
+                        "title":"Bookingprodukt - test",
+                        "ticketDescription":"Test af billetbeskrivelsen, som skal st\u00e5 her."
+                    },
+                    "usage":[
+
+                    ],
+                    "validFrom":null,
+                    "validTo":null
+               }
+            ]
+
+## Ticket details [/channel/ticket-identity/{barcode}]
+### Get Ticket Identity Details [GET]
+
+Retrieve ticket identity details
+
++ Parameters
+    + barcode (number, required) - Ticket barcode
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+            <?xml version="1.0" encoding="UTF-8"?>
+            <ticketIdentity xmlns="https://gotour.dk/pcm/channel/ticket-identity">
+                <id>805</id>
+                <type>barcode</type>
+                <code>1234561234567</code>
+                <validDatePeriodId>23</validDatePeriodId>
+                <product id="35" ver="1">
+                    <title>Entre</title>
+                </product>
+                <usage>
+                    <scan id="1">
+                        <insertTime>2013-10-21T15:02:49+02:00</insertTime>
+                        <scannedBy>John Doe &lt;jd@example.com&gt;</scannedBy>
+                    </scan>
+                    <scan id="11">
+                        <insertTime>2013-10-21T15:40:12+02:00</insertTime>
+                        <scannedBy>John Doe &lt;jd@example.com&gt;</scannedBy>
+                    </scan>
+                </usage>
+            </ticketIdentity>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id":25,
+                "type":"barcode",
+                "code":"8425201249386",
+                "message":null,
+                "userId":null,
+                "validDatePeriodId":null,
+                "maxUsage":1,
+                "url":null,
+                "product":{
+                    "id":25,
+                    "ver":1,
+                    "title":"Bookingprodukt - test",
+                    "ticketDescription":"Test af billetbeskrivelsen, som skal st\u00e5 her."
+               },
+               "usage":{
+                    "3":{
+                        "id":3,
+                        "insertTime":"2014-03-17T09:38:51+01:00",
+                        "revoke":null,
+                        "scannedBy":"Domas Trijonis <dtr@gotour.dk>"
+                    }
+                },
+                "validFrom":null,
+                "validTo":null
+            }
+
+### Verify a Ticket [POST]
+
+Tries to scan a given ticket. A list of errors will be returned. For more details overview, see the ticket identity read-action.
+
+|Error code|Description|
+|---|---|
+|2000|The package the ticket belongs to is expired since the first use (for package products only)|
+|2001|The ticket itself has expired|
+|3000|The ticket has already been used the allowed number of times. Call read to get the complete list of usages.|
+|3001|The ticket has already been used the allowed number of times for the specific provider.|
+|4000|The ticket exists, but belongs to another organization|
+|4500|The ticket exists, but can only be used by different provider|
+|5000|The ticket does not exist|
+
++ Parameters
+    + barcode (number, required) - The barcode to scan
+    + type = `scan` (optional, string) ... Set value to “scan” to mark the ticket as used, and “check” to only validate the barcode.
+        + Values
+            + `scan`
+            + `check`
+    + channel (string, required) - The name of the channel.
+    + language: `en` (string, optional) - Language to use in ISO 639-1 standard
+        + Default: `da`
+    + currency: `EUR` (string, optional) - The currency to use in ISO 4217 format
+        + Default: `DKK`
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <errors xmlns="https://gotour.dk/pcm/channel/ticket-identity"/>
+
++ Response 200 (application/json)
+
+    + Body
+            {
+                "errors":[]
+            }
+
++ Response 420 (application/xml)
+
+    + Body
+    
+            <?xml version="1.0" encoding="UTF-8"?>
+            <error application="Product Channel Manager (PCM)">
+                <message>Data error</message>
+                <exception>
+                        <message>The ticket has already been used at 2013-10-21 15:02:49 by Jean Connery from VisitNordsjælland</message>
+                        <code>3000</code>
+                        <details>
+                            <insertTime>
+                                <date>2013-10-21 15:02:49</date>
+                                <timezone_type>1</timezone_type>
+                                <timezone>+02:00</timezone>
+                            </insertTime>
+                            <user>Jan Rise</user>
+                            <organization>VisitNordsjælland</organization>
+                        </details>
+                </exception>
+            </error>
+
++ Response 420 (application/json)
+
+    + Body
+    
+            {
+                "application":"Product Channel Manager (PCM)",
+                "message":"rest.error.input.error",
+                "exception":{
+                    "message":"The package the ticket belongs to is expired",
+                    "code":2000
+                }
+            }
+
+# Group Language, Currency, Sales Agreements and Batch Requests
+
+## Supported Languages [/channel/language]
+### Get List of Languages [GET]
+
+Retrieve a list of supported languages. 
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <languages xmlns="https://gotour.dk/pcm/channel/language">
+                <language id="1" code="da" locale="da_DK">danish</language>
+                <language id="2" code="en" locale="en_GB">english</language>
+                <language id="3" code="de" locale="de_DE">german</language>
+                <language id="4" code="no" locale="nb_NO">norwegian</language>
+                <language id="5" code="sv" locale="sw_SE">swedish</language>
+                <language id="6" code="nl" locale="nl_NL">dutch</language>
+            </languages>
+
++ Response 200 (application/json)
+
+    + Body
+            [
+                {
+                    "id":1,
+                    "label":"danish",
+                    "locale":"da_DK",
+                    "code":"da"
+                },
+                {
+                    "id":2,
+                    "label":"english",
+                    "locale":"en_GB",
+                    "code":"en"
+                },
+                {
+                    "id":3,
+                    "label":"german",
+                    "locale":"de_DE",
+                    "code":"de"
+                },
+                {
+                    "id":4,
+                    "label":"norwegian",
+                    "locale":"nb_NO",
+                    "code":"no"
+                },
+                {
+                    "id":5,
+                    "label":"swedish",
+                    "locale":"sw_SE",
+                    "code":"sv"
+                },
+                {
+                    "id":6,
+                    "label":"dutch",
+                    "locale":"nl_NL",
+                    "code":"nl"
+                }
+            ]
+
+## Supported Currencies [/channel/currency?format={format}]
+### Get supported currencies [GET]
+
+Retrieve a list of supported currencies.
+
++ Parameters
+    + format: `xml` (string, optional) - Either json or xml.
+        + Default: `json`
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <currencies xmlns="https://gotour.dk/pcm/channel/currency">
+                <currency id="1">DKK</currency>
+                <currency id="2">EUR</currency>
+                <currency id="3">USD</currency>
+                <currency id="4">SEK</currency>
+                <currency id="5">NOK</currency>
+            </currencies>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id":1,
+                    "currency":"DKK"
+                },
+                {
+                    "id":2,
+                    "currency":"EUR"
+                },
+                {
+                    "id":3,
+                    "currency":"USD"
+                },
+                {
+                    "id":4,
+                    "currency":"SEK"
+                },
+                {
+                    "id":5,
+                    "currency":"NOK"
+                }
+            ]
+
+## Sales Agreements [/channel/sales-agreement]
+### Get Active Sales Agreements [GET]
+
+Retrieve a list of active sales agreements.
+
+#### Response description
+
+|Field|Description|
+|---|---|
+|name|Name of the sales agreement|
+|from|Date from which the sales agreement takes effect|
+|to|Date that the sales agreement expires|
+|products|Products in the sales agreement|
+|product[id]|The ID of the product|
+|product[providerId]|The provider ID that provides this product|
+|product[providerName]|The name of the provider offering this product|
+|product[title]|The name of the sales agreement|
+|product[quantity]|How many of this product is available in this agreement|
+|product[price]|The sales price of the product as part of this sales agreement|
+|product[fullPrice]|The original price of the product|
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <salesAgreements xmlns="https://gotour.dk/pcm/channel/salesAgreement">
+                <salesAgreement id="1">
+                    <name>Unnamed agreement</name>
+                    <from>2013-10-22T00:00:00+02:00</from>
+                    <to>2013-11-22T00:00:00+01:00</to>
+                    <products>
+                        <product id="10" providerId="9" quantity="10" price="3500">
+                            <title>1 dags leje af voksencykel (herre)</title>
+                            <providerName>Cykeludlejning - Danhostel Helsingør</providerName>
+                        </product>
+                    </products>
+                </salesAgreement>
+                <salesAgreement id="2">
+                    <name>Unnamed agreement</name>
+                    <from>2013-10-23T00:00:00+02:00</from>
+                    <to>2014-05-02T00:00:00+02:00</to>
+                    <products>
+                        <product id="29" providerId="6" quantity="50" fullPrice="50000" price="20000">
+                            <title>Morgenmad for 2 personer</title>
+                            <providerName>Skjalm Hvide Hotel</providerName>
+                        </product>
+                    </products>
+                </salesAgreement>
+            </salesAgreements>
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id": 1,
+                    "name": "Unnamed agreement",
+                    "from": "2013-10-22T00:00:00+02:00",
+                    "to": "2013-11-22T00:00:00+01:00",
+                    "products": [
+                        {
+                            "id": 10,
+                            "title": "1 dags leje af voksencykel (herre)",
+                            "providerId": 9,
+                            "providerName": "Cykeludlejning - Danhostel Helsingør",
+                            "fullPrice": null,
+                            "price": 3500,
+                            "quantity": 10
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "name": "Unnamed agreement",
+                    "from": "2013-10-23T00:00:00+02:00",
+                    "to": "2014-05-02T00:00:00+02:00",
+                    "products": [
+                        {
+                            "id": 29,
+                            "title": "Morgenmad for 2 personer",
+                            "providerId": 6,
+                            "providerName": "Skjalm Hvide Hotel",
+                            "fullPrice": 50000,
+                            "price": 20000,
+                            "quantity": 50
+                        }
+                    ]
+                }
+            ]
+
+## Request Grouping [/channel/batch?r={r}]
+### Batch Request Grouping [GET]
+
+This is a special resource, all previously mentioned resources can be accessed through batch request. Purpose of this is to group requests into one request instead of making multiple http requests.
+
++ Parameters 
+    + r (array, required)
+        This is a key/value pair of requests to be performed. Pair key is request id, and value is url encoded path.
+        The path begins with resource name, not with ‘channel/’.
+        Global parameters (language, currency, channel) are set only to batch request (no need to duplicate them for each sub request).
+        Only GET requests are supported.
+
++ Response 200 (application/xml)
+
+    + Body
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <requests xmlns="https://gotour.dk/pcm/channel/batch">
+                <request id="cities">...</request>
+                <request id="products">...</request>
+            </requests>
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "cities":[...],
+                "products":[...]
+            }
+
+# Data Structures
+
+## DateTime (string)
+
+    The date and time in the format (Y-m-d\TH:i:sP)
+
+## Date (string)
+
+    The date in the format (Y-m-d)
+
+
